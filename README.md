@@ -6,6 +6,16 @@ A convenient tool for adding borders, watermarks to images, with possible future
 
 **Node: The project is in its early development stage, so parameters and commands may be subject to change.**
 
+### Usage
+
+build binary from source
+
+```bash
+$ git clone https://github.com/sincerefly/capybara
+$ cd capybara
+$ go build
+```
+
 ### Quick Start
 
 add border with default parameters
@@ -51,7 +61,7 @@ Different styles support different parameters. Please refer to the documentation
 You can use `--help` to view the default parameters.
 
 ```bash
-➜ ./capybara border --help
+$ ./capybara border --help
 To batch add borders to images.
 
 Usage:
@@ -75,6 +85,7 @@ Use "border border [command] --help" for more information about a command.
 Subcommand --help
 
 ```bash
+$ ./capybara border text_bottom --help
 Style: Footer text, with photo exif
 
 Usage:
@@ -89,5 +100,4 @@ Flags:
   -o, --output string          specify output folder (default "output")
   -w, --width int              specify border width (default 100)
       --without-subtitle       without sub-title
-
 ```
