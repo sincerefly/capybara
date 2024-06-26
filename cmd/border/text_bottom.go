@@ -4,6 +4,7 @@ import (
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/service/border"
 	"github.com/sincerefly/capybara/service/border/styles"
+	"github.com/sincerefly/capybara/utils/cobra_utils"
 	"github.com/sincerefly/capybara/utils/colorizer"
 	"github.com/spf13/cobra"
 )
@@ -13,39 +14,40 @@ var TextBottomCmd = &cobra.Command{
 	Short: "Style: Footer text, with photo exif",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		tbParameter := &styles.TextBottomParameter{}
+		parameter := &styles.TextBottomParameter{}
 
-		input, _ := cmd.Flags().GetString("input")
-		tbParameter.SetInput(input)
+		input := cobra_utils.GetParam(cmd.Flags(), "input")
+		parameter.SetInput(input)
 
-		output, _ := cmd.Flags().GetString("output")
-		tbParameter.SetOutput(output)
+		output := cobra_utils.GetParam(cmd.Flags(), "output")
+		parameter.SetOutput(output)
 
 		// width param
-		width, _ := cmd.Flags().GetInt("width")
-		if borderWidth, fixed := border.FixedBorderWidth(width); fixed {
-			log.Warn("border width fixed with %d", borderWidth)
-		} else {
-			tbParameter.SetBorderWidth(borderWidth)
+		width := cobra_utils.GetIntParam(cmd.Flags(), "width")
+		if fixedWidth, fixed := border.FixedBorderWidth(width); fixed {
+			log.Warn("border width fixed with %d", fixedWidth)
+			width = fixedWidth
 		}
+		parameter.SetBorderWidth(width)
 
 		// color param
-		colorStr, _ := cmd.Flags().GetString("color")
+		colorStr := cobra_utils.GetParam(cmd.Flags(), "color")
 		col, err := colorizer.ToColor(colorStr)
 		if err != nil {
 			log.Fatal(err)
 		}
-		tbParameter.SetBorderColor(col)
+		parameter.SetBorderColor(col)
 
 		// bottom container height
-		containerHeight, _ := cmd.Flags().GetInt("container-height")
-		tbParameter.SetBottomContainerHeight(containerHeight)
+		containerHeight := cobra_utils.GetIntParam(cmd.Flags(), "container-height")
+		parameter.SetBottomContainerHeight(containerHeight)
 
-		withoutSubtitle, _ := cmd.Flags().GetBool("without-subtitle")
-		tbParameter.SetWithoutSubtitle(withoutSubtitle)
+		// with subtitle
+		withoutSubtitle := cobra_utils.GetBoolParam(cmd.Flags(), "without-subtitle")
+		parameter.SetWithoutSubtitle(withoutSubtitle)
 
 		// run
-		border.NewStyleProcessor(border.StyleTextBottom, tbParameter).Run()
+		border.NewStyleProcessor(border.StyleTextBottom, parameter).Run()
 	},
 }
 
@@ -57,6 +59,5 @@ func init() {
 	flags.IntP("width", "w", 100, "specify border width")
 	flags.StringP("color", "c", "white", "specify border color")
 	flags.IntP("container-height", "", 300, "bottom text container height")
-	flags.BoolP("without-subtitle", "", false, "without sub-title")
-	flags.BoolP("debug", "d", false, "print details log")
+	flags.BoolP("without-subtitle", "", false, "without subtitle")
 }

@@ -55,7 +55,7 @@ func (s *TextBottomProcessor) Run() error {
 	return nil
 }
 
-func (s *TextBottomProcessor) runner(srcImageKey, outputImageKey string, meta exif_utils.ExifMeta) error {
+func (s *TextBottomProcessor) runner(srcImageKey, outImageKey string, meta exif_utils.ExifMeta) error {
 
 	middleText := meta.ModelSafe()
 	rightText := meta.MakeSafe()
@@ -101,15 +101,13 @@ func (s *TextBottomProcessor) runner(srcImageKey, outputImageKey string, meta ex
 		}
 	}
 
-	finalImage := dc.Image()
-
-	err = imaging.Save(finalImage, outputImageKey)
+	err = imaging.Save(dc.Image(), outImageKey)
 	if err != nil {
 		log.Fatalf("failed to save image %v", err)
 		return err
 	}
 
-	log.Infof("image with simple border saved to %s", outputImageKey)
+	log.Infof("image with simple border saved to %s", outImageKey)
 	return nil
 }
 

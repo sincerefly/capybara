@@ -4,6 +4,7 @@ import (
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/service/border"
 	"github.com/sincerefly/capybara/service/border/styles"
+	"github.com/sincerefly/capybara/utils/cobra_utils"
 	"github.com/sincerefly/capybara/utils/colorizer"
 	"github.com/spf13/cobra"
 )
@@ -13,32 +14,32 @@ var SimpleCmd = &cobra.Command{
 	Short: "Style: add a uniform-width border to the image.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		simpleParameter := &styles.SimpleParameter{}
+		parameter := &styles.SimpleParameter{}
 
-		input, _ := cmd.Flags().GetString("input")
-		simpleParameter.SetInput(input)
+		input := cobra_utils.GetParam(cmd.Flags(), "input")
+		parameter.SetInput(input)
 
-		output, _ := cmd.Flags().GetString("output")
-		simpleParameter.SetOutput(output)
+		output := cobra_utils.GetParam(cmd.Flags(), "output")
+		parameter.SetOutput(output)
 
 		// width param
-		borderWidth, _ := cmd.Flags().GetInt("width")
-		borderWidth, fixed := border.FixedBorderWidth(borderWidth)
-		if fixed {
-			log.Warn("border width fixed with %d", borderWidth)
+		width := cobra_utils.GetIntParam(cmd.Flags(), "width")
+		if fixedWidth, fixed := border.FixedBorderWidth(width); fixed {
+			log.Warn("border width fixed with %d", width)
+			width = fixedWidth
 		}
-		simpleParameter.SetBorderWidth(borderWidth)
+		parameter.SetBorderWidth(width)
 
 		// color param
-		colorStr, _ := cmd.Flags().GetString("color")
+		colorStr := cobra_utils.GetParam(cmd.Flags(), "color")
 		col, err := colorizer.ToColor(colorStr)
 		if err != nil {
 			log.Fatal(err)
 		}
-		simpleParameter.SetBorderColor(col)
+		parameter.SetBorderColor(col)
 
 		// run
-		border.NewStyleProcessor(border.StyleSimple, simpleParameter).Run()
+		border.NewStyleProcessor(border.StyleSimple, parameter).Run()
 	},
 }
 
@@ -49,5 +50,4 @@ func init() {
 	flags.StringP("output", "o", "output", "specify output folder")
 	flags.IntP("width", "w", 100, "specify border width")
 	flags.StringP("color", "c", "white", "specify border color")
-	flags.BoolP("debug", "d", false, "print details log")
 }
