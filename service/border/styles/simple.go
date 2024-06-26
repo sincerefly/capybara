@@ -5,7 +5,6 @@ import (
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/utils/fileitem"
 	"image"
-	"os"
 )
 
 type SimpleProcessor struct {
@@ -26,9 +25,6 @@ func (s *SimpleProcessor) Run() error {
 	}
 
 	for _, fi := range s.fiStore.GetItems() {
-		if err := os.MkdirAll(fi.GetTargetPath(), os.ModePerm); err != nil {
-			return err
-		}
 		s.runner(fi.GetSourceKey(), fi.GetTargetKey())
 	}
 	return nil

@@ -8,7 +8,6 @@ import (
 	"github.com/sincerefly/capybara/utils"
 	"github.com/sincerefly/capybara/utils/fileitem"
 	"github.com/spf13/afero"
-	"os"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -108,7 +107,7 @@ func (s *StyleProcessor) collectInputs() (*fileitem.Store, error) {
 // prepare output dirs
 func (s *StyleProcessor) prepareOutputDirs(fiStore *fileitem.Store) error {
 	for _, outputDir := range fiStore.GetTargetPaths() {
-		if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
+		if err := utils.MkdirAll(outputDir); err != nil {
 			return err
 		}
 	}

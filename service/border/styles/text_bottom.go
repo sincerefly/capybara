@@ -15,7 +15,6 @@ import (
 	"golang.org/x/image/colornames"
 	"image"
 	"image/color"
-	"os"
 	"strings"
 )
 
@@ -44,9 +43,6 @@ func (s *TextBottomProcessor) Run() error {
 	metas := etClient.GetFilesMetaByStore(s.fiStore)
 
 	for i, fi := range s.fiStore.GetItems() {
-		if err = os.MkdirAll(fi.GetTargetPath(), os.ModePerm); err != nil {
-			return err
-		}
 		if err = s.runner(fi.GetSourceKey(), fi.GetTargetKey(), metas[i]); err != nil {
 			return err
 		}
