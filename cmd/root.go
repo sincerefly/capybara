@@ -4,6 +4,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/sincerefly/capybara/base"
 	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/global"
 	"github.com/spf13/cobra"
 	v "github.com/spf13/viper"
 	"gitlab.com/avarf/getenvs"
@@ -29,7 +30,6 @@ func python(fn pythonFunc, envName string) cobraFunc {
 
 var (
 	cfgFile string
-	debug   bool
 )
 
 func init() {
@@ -38,7 +38,8 @@ func init() {
 	flags := rootCmd.Flags()
 	flags.BoolP("version", "v", false, "output version")
 
-	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "Enable debug mode")
+	rootCmd.PersistentFlags().BoolVar(&global.ParamDebug, "debug", false, "Enable debug mode")
+	rootCmd.PersistentFlags().BoolVar(&global.ParamDisableGoroutine, "disable-goroutine", false, "Disable goroutine")
 }
 
 var rootCmd = &cobra.Command{

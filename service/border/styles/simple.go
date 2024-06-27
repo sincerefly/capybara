@@ -3,6 +3,7 @@ package styles
 import (
 	"github.com/disintegration/imaging"
 	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/global"
 	"github.com/sincerefly/capybara/utils/fileitem"
 	"image"
 )
@@ -23,14 +24,18 @@ func (s *SimpleProcessor) Run() error {
 	if s.fiStore == nil {
 		return nil
 	}
-
-	for _, fi := range s.fiStore.GetItems() {
-		s.runner(fi.GetSourceKey(), fi.GetTargetKey())
+	if global.ParamDisableGoroutine {
+		fileitem.LoopExecutor(s.fiStore, s.runner)
+	} else {
+		fileitem.PoolExecutor(s.fiStore, s.runner)
 	}
 	return nil
 }
 
-func (s *SimpleProcessor) runner(srcImageKey, outputImageKey string) {
+func (s *SimpleProcessor) runner(fi fileitem.FileItem) error {
+
+	srcImageKey := fi.GetSourceKey()
+	outImageKey := fi.GetTargetKey()
 
 	borderWidth := s.params.GetBorderWidth()
 	borderColor := s.params.GetBorderColor()
@@ -53,9 +58,11 @@ func (s *SimpleProcessor) runner(srcImageKey, outputImageKey string) {
 	dst = imaging.Paste(dst, img, image.Pt(borderWidth, borderWidth)) // paste image to dst
 
 	// save image
-	err = imaging.Save(dst, outputImageKey)
+	err = imaging.Save(dst, outImageKey)
 	if err != nil {
 		log.Fatalf("failed to save image %v", err)
 	}
-	log.Infof("image with simple border saved to %s", outputImageKey)
+	log.Infof("image with simple border saved to %s", outImageKey)
+
+	return nil
 }

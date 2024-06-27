@@ -1,6 +1,7 @@
 package fileitem
 
 import (
+	"github.com/sincerefly/capybara/utils/exif_utils"
 	"path/filepath"
 	"strings"
 )
@@ -14,6 +15,8 @@ type FileItem struct {
 	innerPath   string // e.g. lite/01.jpg
 	sourceBase  string // e.g. /home/input/ or input/
 	targetBase  string // e.g. /home/target/
+
+	exifMeta exif_utils.ExifMeta
 }
 
 func NewFileItem(filename string) FileItem {
@@ -107,4 +110,12 @@ func (f *FileItem) GetTargetPath() string {
 
 func (f *FileItem) GetTargetKey() string {
 	return filepath.Join(f.targetBase, f.innerPath, f.filename)
+}
+
+func (f *FileItem) SetExifMeta(meta exif_utils.ExifMeta) {
+	f.exifMeta = meta
+}
+
+func (f *FileItem) GetExifMeta() exif_utils.ExifMeta {
+	return f.exifMeta
 }

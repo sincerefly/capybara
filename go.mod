@@ -19,6 +19,7 @@ require (
 )
 
 require (
+	github.com/alitto/pond v1.9.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/barasher/go-exiftool v1.10.0 // indirect
 	github.com/charmbracelet/lipgloss v0.10.0 // indirect

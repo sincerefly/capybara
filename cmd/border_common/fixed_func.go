@@ -1,4 +1,4 @@
-package border
+package border_common
 
 const (
 	MinBorderWidth = 3

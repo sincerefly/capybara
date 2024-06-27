@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/barasher/go-exiftool"
-	"github.com/sincerefly/capybara/utils/fileitem"
 )
 
 type ExifClient struct {
@@ -19,11 +18,11 @@ func NewExifClient() (*ExifClient, error) {
 	return &ExifClient{etClient: client}, nil
 }
 
-func (c *ExifClient) GetFilesMetaByStore(store *fileitem.Store) []ExifMeta {
-	sourceKeys := store.GetSourceKeys()
-	metas := make([]ExifMeta, 0, len(sourceKeys))
-	for _, etMetadata := range c.etClient.ExtractMetadata(sourceKeys...) {
-		metas = append(metas, ExifMeta{etMetadata: etMetadata})
+func (c *ExifClient) ExtractMetadata(paths []string) []ExifMeta {
+
+	metas := make([]ExifMeta, 0, len(paths))
+	for _, etMetadata := range c.etClient.ExtractMetadata(paths...) {
+		metas = append(metas, NewExifMeta(etMetadata))
 	}
 	return metas
 }
@@ -48,6 +47,12 @@ func (c *ExifClient) GetFileMeta(path string) ExifMeta {
 
 type ExifMeta struct {
 	etMetadata exiftool.FileMetadata
+}
+
+func NewExifMeta(etMetadata exiftool.FileMetadata) ExifMeta {
+	return ExifMeta{
+		etMetadata: etMetadata,
+	}
 }
 
 // PrimitiveMeta Get exiftool.FileMetadata

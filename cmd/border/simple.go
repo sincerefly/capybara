@@ -2,6 +2,7 @@ package border
 
 import (
 	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/cmd/border_common"
 	"github.com/sincerefly/capybara/service/border"
 	"github.com/sincerefly/capybara/service/border/styles"
 	"github.com/sincerefly/capybara/utils/cobra_utils"
@@ -24,7 +25,7 @@ var SimpleCmd = &cobra.Command{
 
 		// width param
 		width := cobra_utils.GetIntParam(cmd.Flags(), "width")
-		if fixedWidth, fixed := border.FixedBorderWidth(width); fixed {
+		if fixedWidth, fixed := border_common.FixedBorderWidth(width); fixed {
 			log.Warn("border width fixed with %d", width)
 			width = fixedWidth
 		}

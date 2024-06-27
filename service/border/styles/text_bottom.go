@@ -5,7 +5,9 @@ import (
 	"github.com/disintegration/imaging"
 	"github.com/fogleman/gg"
 	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/global"
 	"github.com/sincerefly/capybara/resources"
+	"github.com/sincerefly/capybara/service/border/styles_common"
 	"github.com/sincerefly/capybara/structure"
 	"github.com/sincerefly/capybara/structure/layout"
 	"github.com/sincerefly/capybara/structure/text_struct"
@@ -36,26 +38,24 @@ func (s *TextBottomProcessor) Run() error {
 	}
 
 	// parser exif meta data
-	etClient, err := exif_utils.NewExifClient()
+	newStore, err := styles_common.SupplementaryMetaToStore(s.fiStore)
 	if err != nil {
 		return err
 	}
-	metas := etClient.GetFilesMetaByStore(s.fiStore)
 
-	for i, fi := range s.fiStore.GetItems() {
-		if err = s.runner(fi.GetSourceKey(), fi.GetTargetKey(), metas[i]); err != nil {
-			return err
-		}
-		//if strings.Contains(fi.GetSourceKey(), "a7m4") {
-		//	for field, value := range metas[i].PrimitiveMeta().Fields {
-		//		fmt.Println(field, value)
-		//	}
-		//}
+	if global.ParamDisableGoroutine {
+		fileitem.LoopExecutor(newStore, s.runner)
+	} else {
+		fileitem.PoolExecutor(newStore, s.runner)
 	}
 	return nil
 }
 
-func (s *TextBottomProcessor) runner(srcImageKey, outImageKey string, meta exif_utils.ExifMeta) error {
+func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
+
+	srcImageKey := fi.GetSourceKey()
+	outImageKey := fi.GetTargetKey()
+	meta := fi.GetExifMeta()
 
 	middleText := meta.ModelSafe()
 	rightText := meta.MakeSafe()
