@@ -10,6 +10,10 @@ MODULE = $(shell env GO111MODULE=on go list -m)
 
 LDFLAGS += -X "$(MODULE)/base.Version=$(VERSION)" -X "$(MODULE)/base.CommitSHA=$(VERSION_HASH)" -X "$(MODULE)/base.BuildDate=$(DATE)"
 
+build-exifviewer:
+	CGO_ENABLED=0 \
+	go build -ldflags '-w -s' -v -o bin/exifviewer tools/exifviewer/main.go
+
 .PHONY: build
 build: ## Build
 	$Q $(go) build -ldflags '$(LDFLAGS)' -o .
