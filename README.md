@@ -4,7 +4,7 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-_red.svg"></a>
 <a href="https://github.com/sincerefly/capybara/issues"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat"></a>
 [![codecov](https://codecov.io/gh/sincerefly/capybara/graph/badge.svg?token=D8RGT9H0TU)](https://codecov.io/gh/sincerefly/capybara)
-<img src="https://img.shields.io/github/size/sincerefly/capybara?style=flat-square&color=328657" alt="Repo Size">
+<img src="https://img.shields.io/github/repo-size/sincerefly/capybara?style=flat-square&color=328657" alt="Repo Size">
 
 A convenient tool for adding borders, watermarks to images, with possible future additions such as format conversion, image compression, and more.
 
