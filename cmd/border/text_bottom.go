@@ -47,6 +47,7 @@ var TextBottomCmd = &cobra.Command{
 		parameter.SetWithoutSubtitle(withoutSubtitle)
 
 		// run
+		log.Debugf("parameter: %s", parameter.JSONString())
 		border.NewStyleProcessor(border.StyleTextBottom, parameter).Run()
 	},
 }

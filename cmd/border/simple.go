@@ -39,6 +39,7 @@ var SimpleCmd = &cobra.Command{
 		parameter.SetBorderColor(col)
 
 		// run
+		log.Debugf("parameter: %s", parameter.JSONString())
 		border.NewStyleProcessor(border.StyleSimple, parameter).Run()
 	},
 }

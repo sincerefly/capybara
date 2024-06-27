@@ -1,6 +1,9 @@
 package styles
 
-import "image/color"
+import (
+	"encoding/json"
+	"image/color"
+)
 
 type SimpleParameter struct {
 	input  string
@@ -8,6 +11,22 @@ type SimpleParameter struct {
 
 	borderWidth int
 	borderColor color.Color
+}
+
+func (p *SimpleParameter) JSONString() string {
+
+	resp := map[string]any{
+		"input":       p.GetInput(),
+		"output":      p.GetOutput(),
+		"borderWidth": p.GetBorderWidth(),
+		"borderColor": p.GetBorderColor(),
+	}
+
+	b, err := json.Marshal(resp)
+	if err != nil {
+		return ""
+	}
+	return string(b)
 }
 
 func (p *SimpleParameter) GetInput() string {

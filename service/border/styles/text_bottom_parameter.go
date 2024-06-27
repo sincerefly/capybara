@@ -1,6 +1,9 @@
 package styles
 
-import "image/color"
+import (
+	"encoding/json"
+	"image/color"
+)
 
 type TextBottomParameter struct {
 	input                 string
@@ -9,6 +12,24 @@ type TextBottomParameter struct {
 	borderColor           color.Color
 	withoutSubTitle       bool
 	bottomContainerHeight int
+}
+
+func (p *TextBottomParameter) JSONString() string {
+
+	resp := map[string]any{
+		"input":                 p.GetInput(),
+		"output":                p.GetOutput(),
+		"borderWidth":           p.GetBorderWidth(),
+		"borderColor":           p.GetBorderColor(),
+		"withoutSubTitle":       p.GetWithoutSubtitle(),
+		"bottomContainerHeight": p.GetBottomContainerHeight(),
+	}
+
+	b, err := json.Marshal(resp)
+	if err != nil {
+		return ""
+	}
+	return string(b)
 }
 
 func (p *TextBottomParameter) GetInput() string {
