@@ -1,6 +1,6 @@
 module github.com/sincerefly/capybara
 
-go 1.20
+go 1.21
 
 require (
 	github.com/alitto/pond v1.9.0
