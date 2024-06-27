@@ -6,9 +6,9 @@ const (
 )
 
 func FixedBorderWidth(borderWidth int) (width int, fixed bool) {
-	if borderWidth > 2000 {
+	if borderWidth > MaxBorderWidth {
 		return MaxBorderWidth, true
-	} else if borderWidth < 3 {
+	} else if borderWidth < MinBorderWidth {
 		return MinBorderWidth, true
 	}
 	return borderWidth, false

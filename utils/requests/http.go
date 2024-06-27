@@ -2,7 +2,6 @@ package requests
 
 import (
 	"io"
-	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -24,7 +23,7 @@ func Post(url string, body io.Reader) ([]byte, int, error) {
 	defer func() {
 		_ = r.Body.Close()
 	}()
-	resBody, err := ioutil.ReadAll(r.Body)
+	resBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		return nil, r.StatusCode, err
 	}
@@ -51,7 +50,7 @@ func Get(url string, appHeader map[string]string) ([]byte, int, error) {
 	defer func() {
 		_ = r.Body.Close()
 	}()
-	resBody, err := ioutil.ReadAll(r.Body)
+	resBody, err := io.ReadAll(r.Body)
 	if err != nil {
 		return nil, r.StatusCode, err
 	}
