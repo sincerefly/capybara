@@ -3,13 +3,14 @@ module github.com/sincerefly/capybara
 go 1.20
 
 require (
+	github.com/alitto/pond v1.9.0
+	github.com/barasher/go-exiftool v1.10.0
 	github.com/charmbracelet/log v0.4.0
 	github.com/disintegration/imaging v1.6.2
 	github.com/fogleman/gg v1.3.0
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/magiconair/properties v1.8.7
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/spf13/afero v1.11.0
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/pflag v1.0.5
@@ -19,9 +20,7 @@ require (
 )
 
 require (
-	github.com/alitto/pond v1.9.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/barasher/go-exiftool v1.10.0 // indirect
 	github.com/charmbracelet/lipgloss v0.10.0 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
