@@ -44,7 +44,7 @@ func (p *NikonParser) FocalLengthIn35mmFormat() (string, error) {
 	}
 	parts := strings.Split(focalStr, " ")
 
-	var focal = ""
+	var focal string
 	if len(parts) == 0 {
 		return "", fmt.Errorf("%s can't be parserd", tagname.FocalLength)
 	}
