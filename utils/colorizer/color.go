@@ -43,7 +43,7 @@ func hexToColor(hex string) (color.RGBA, error) {
 		hex += "FF" // alpha default 'FF'
 	}
 
-	// 解析红、绿、蓝、透明度通道值
+	//parse r,g,b,a value
 	if len(hex) == 8 {
 		r, _ := strconv.ParseUint(hex[0:2], 16, 8)
 		g, _ := strconv.ParseUint(hex[2:4], 16, 8)
