@@ -65,25 +65,26 @@ Different styles support different parameters. Please refer to the documentation
 You can use `--help` to view the default parameters.
 
 ```bash
-$ ./capybara border --help
-To batch add borders to images.
+$ ./capybara --help
+A command-line tool to add simple borders and annotate photo information such as camera model, manufacturer, focal length, lens, etc.
 
 Usage:
-  border border [flags]
-  border border [command]
+  border [flags]
+  border [command]
 
 Available Commands:
-  simple      Style: add a uniform-width border to the image.
-  text_bottom Style: Footer text, with photo exif
+  border      To batch add borders to images.
+  completion  Generate the autocompletion script for the specified shell
+  help        Help about any command
+  version     Print the version number
 
 Flags:
-  -h, --help   help for border
+      --debug            enables detailed logging for debugging.
+  -h, --help             help for border
+      --no-parallelism   disables parallel processing, without goroutine.
+  -v, --version          print version
 
-Global Flags:
-      --debug   Enable debug mode
-
-Use "border border [command] --help" for more information about a command.
-
+Use "border [command] --help" for more information about a command.
 ```
 
 Subcommand --help
@@ -98,10 +99,13 @@ Usage:
 Flags:
   -c, --color string           specify border color (default "white")
       --container-height int   bottom text container height (default 300)
-  -d, --debug                  print details log
   -h, --help                   help for text_bottom
   -i, --input string           specify input folder (default "input")
   -o, --output string          specify output folder (default "output")
   -w, --width int              specify border width (default 100)
-      --without-subtitle       without sub-title
+      --without-subtitle       without subtitle
+
+Global Flags:
+      --debug            enables detailed logging for debugging.
+      --no-parallelism   disables parallel processing, without goroutine.
 ```

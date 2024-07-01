@@ -36,10 +36,10 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	flags := rootCmd.Flags()
-	flags.BoolP("version", "v", false, "output version")
+	flags.BoolP("version", "v", false, "print version")
 
-	rootCmd.PersistentFlags().BoolVar(&global.ParamDebug, "debug", false, "Enable debug mode")
-	rootCmd.PersistentFlags().BoolVar(&global.ParamDisableGoroutine, "disable-goroutine", false, "Disable goroutine")
+	rootCmd.PersistentFlags().BoolVar(&global.ParamDebug, "debug", false, "enables detailed logging for debugging.")
+	rootCmd.PersistentFlags().BoolVar(&global.ParamNoParallelism, "no-parallelism", false, "disables parallel processing, without goroutine.")
 }
 
 var rootCmd = &cobra.Command{

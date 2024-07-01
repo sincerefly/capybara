@@ -43,7 +43,7 @@ func (s *TextBottomProcessor) Run() error {
 		return err
 	}
 
-	if global.ParamDisableGoroutine {
+	if global.ParamNoParallelism {
 		fileitem.LoopExecutor(newStore, s.runner)
 	} else {
 		fileitem.PoolExecutor(newStore, s.runner)

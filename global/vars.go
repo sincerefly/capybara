@@ -1,6 +1,6 @@
 package global
 
 var (
-	ParamDebug            bool
-	ParamDisableGoroutine bool
+	ParamDebug         bool
+	ParamNoParallelism bool
 )

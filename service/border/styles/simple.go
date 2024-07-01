@@ -24,7 +24,7 @@ func (s *SimpleProcessor) Run() error {
 	if s.fiStore == nil {
 		return nil
 	}
-	if global.ParamDisableGoroutine {
+	if global.ParamNoParallelism {
 		fileitem.LoopExecutor(s.fiStore, s.runner)
 	} else {
 		fileitem.PoolExecutor(s.fiStore, s.runner)
