@@ -1,4 +1,4 @@
-package structure
+package constants
 
 const (
 	ExtJPG  = ".jpg"

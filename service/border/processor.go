@@ -3,8 +3,8 @@ package border
 import (
 	"fmt"
 	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/constants"
 	"github.com/sincerefly/capybara/service/border/styles"
-	"github.com/sincerefly/capybara/structure"
 	"github.com/sincerefly/capybara/structure/fileitem"
 	"github.com/sincerefly/capybara/utils"
 	"github.com/spf13/afero"
@@ -60,7 +60,7 @@ func (s *StyleProcessor) Supports() []Style {
 }
 
 func (s *StyleProcessor) SupportExtensions() []string {
-	return []string{structure.ExtJPG, structure.ExtPNG, structure.ExtJPEG}
+	return []string{constants.ExtJPG, constants.ExtPNG, constants.ExtJPEG}
 }
 
 // collect input dir images path
