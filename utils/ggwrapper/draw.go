@@ -2,12 +2,12 @@ package ggwrapper
 
 import (
 	"github.com/fogleman/gg"
-	"github.com/sincerefly/capybara/structure/text_struct"
+	"github.com/sincerefly/capybara/structure/text"
 	"github.com/sincerefly/capybara/utils/fonts"
 )
 
 // DrawString draw string with given position and text with paddings
-func DrawString(dc *gg.Context, rTexts []text_struct.RichText) error {
+func DrawString(dc *gg.Context, rTexts []text.RichText) error {
 	for _, rt := range rTexts {
 		face, err := fonts.LoadFontFace(rt.FontPath(), rt.FontSize(), rt.FontSpecified())
 		if err != nil {

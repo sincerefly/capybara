@@ -1,4 +1,4 @@
-package text_struct
+package text
 
 import (
 	"github.com/fogleman/gg"

@@ -11,7 +11,7 @@ import (
 	"github.com/sincerefly/capybara/structure"
 	"github.com/sincerefly/capybara/structure/fileitem"
 	"github.com/sincerefly/capybara/structure/layout"
-	"github.com/sincerefly/capybara/structure/text_struct"
+	"github.com/sincerefly/capybara/structure/text"
 	"github.com/sincerefly/capybara/utils/exif"
 	"github.com/sincerefly/capybara/utils/ggwrapper"
 	"golang.org/x/image/colornames"
@@ -93,8 +93,8 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 	}
 
 	if !s.params.WithoutSubtitle() {
-		text := s.subtitleText(meta)
-		err = s.drawSubtitle(dc, imgDim, titleDim, text)
+		subtitle := s.subtitle(meta)
+		err = s.drawSubtitle(dc, imgDim, titleDim, subtitle)
 		if err != nil {
 			log.Fatalf("failed to draw sub-title %v", err)
 			return err
@@ -133,25 +133,25 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgDim structure.ImageDi
 	// font size
 	fontSize := s.fontSize()
 
-	leftRt := text_struct.NewRichText(
+	leftRt := text.NewRichText(
 		leftText,
 		resources.AlibabaPuHiTi3_Light_TTF,
 		fontSize,
 		color.Black,
 	)
-	middleRt := text_struct.NewRichText(
+	middleRt := text.NewRichText(
 		middleText,
 		resources.AlibabaPuHiTi3_Bold_TTF,
 		fontSize,
 		colornames.Red,
 	)
-	rightRt := text_struct.NewRichText(
+	rightRt := text.NewRichText(
 		rightText,
 		resources.AlibabaPuHiTi3_Bold_TTF,
 		fontSize,
 		colornames.Black,
 	)
-	rTexts := []text_struct.RichText{leftRt, middleRt, rightRt}
+	rTexts := []text.RichText{leftRt, middleRt, rightRt}
 
 	newRTexts, textDim := s.textContainerLayout(imgDim, nil, rTexts)
 
@@ -162,17 +162,17 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgDim structure.ImageDi
 	return &textDim, nil
 }
 
-func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgDim structure.ImageDimension, titleDim *structure.BaseDimension, text string) error {
+func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgDim structure.ImageDimension, titleDim *structure.BaseDimension, subtitle string) error {
 
 	fontSize := s.fontSize()
 
-	richText := text_struct.NewRichText(
-		text, // e.g., "70mm f/4.0 1/800s ISO250"
+	richText := text.NewRichText(
+		subtitle, // e.g., "70mm f/4.0 1/800s ISO250"
 		resources.AlibabaPuHiTi3_Light_TTF,
 		fontSize*0.8,
 		colornames.Gray,
 	)
-	rTexts := []text_struct.RichText{richText}
+	rTexts := []text.RichText{richText}
 
 	offsetPadding := layout.NewPaddingTop(titleDim.Height * 1.2)
 
@@ -184,7 +184,7 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgDim structure.Imag
 	return nil
 }
 
-func (s *TextBottomProcessor) subtitleText(meta exif.ExifMeta) string {
+func (s *TextBottomProcessor) subtitle(meta exif.ExifMeta) string {
 	focalText := strings.Replace(meta.FocalLengthIn35mmFormatSafe(), " ", "", -1)
 	return fmt.Sprintf("%s f/%s %ss ISO%s", focalText, meta.ApertureSafe(), meta.ShutterSpeedSafe(), meta.ISOSafe())
 }
@@ -201,7 +201,7 @@ func (s *TextBottomProcessor) calculateBaseXY(imgDim structure.ImageDimension, t
 }
 
 func (s *TextBottomProcessor) textContainerLayout(imgDim structure.ImageDimension, offsetPadding *layout.Padding,
-	rTexts []text_struct.RichText) ([]text_struct.RichText, structure.BaseDimension) {
+	rTexts []text.RichText) ([]text.RichText, structure.BaseDimension) {
 
 	const spacing = " "
 
@@ -244,7 +244,7 @@ func (s *TextBottomProcessor) textContainerLayout(imgDim structure.ImageDimensio
 	basePosition := s.calculateBaseXY(imgDim, textContainerDim)
 
 	// append position to rich text
-	newRTexts := make([]text_struct.RichText, len(rTexts))
+	newRTexts := make([]text.RichText, len(rTexts))
 	for i, rText := range rTexts {
 		x1 := basePosition.BaseX() + paddings[i].PaddingLeft()
 		y1 := basePosition.BaseY() + paddings[i].PaddingTop()
