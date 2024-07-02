@@ -53,7 +53,7 @@ func (p *GeneralParameter) SetDefaultInput() *GeneralParameter {
 	return p
 }
 
-func (p *GeneralParameter) GetInput() string {
+func (p *GeneralParameter) Input() string {
 	return p.input
 }
 
@@ -71,7 +71,7 @@ func (p *GeneralParameter) SetDefaultOutput() *GeneralParameter {
 	return p
 }
 
-func (p *GeneralParameter) GetOutput() string {
+func (p *GeneralParameter) Output() string {
 	return p.output
 }
 
@@ -94,6 +94,6 @@ func (p *GeneralParameter) GetBorderColor() color.Color {
 }
 
 type Parameter interface {
-	GetInput() string
-	GetOutput() string
+	Input() string
+	Output() string
 }

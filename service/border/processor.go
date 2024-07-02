@@ -67,11 +67,11 @@ func (s *StyleProcessor) SupportExtensions() []string {
 func (s *StyleProcessor) collectInputs() (*fileitem.Store, error) {
 	store := fileitem.NewFileItemStore()
 
-	input := s.params.GetInput()
-	output := s.params.GetOutput()
+	input := s.params.Input()
+	output := s.params.Output()
 
 	fs := afero.NewOsFs()
-	srcImagePaths, err := utils.GetAllFiles(fs, s.params.GetInput())
+	srcImagePaths, err := utils.GetAllFiles(fs, s.params.Input())
 	if err != nil {
 		return nil, fmt.Errorf("load input folder failed, %v", err)
 	}

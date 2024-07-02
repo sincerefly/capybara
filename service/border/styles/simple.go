@@ -37,7 +37,7 @@ func (s *SimpleProcessor) runner(fi fileitem.FileItem) error {
 	srcImageKey := fi.GetSourceKey()
 	outImageKey := fi.GetTargetKey()
 
-	borderWidth := s.params.GetBorderWidth()
+	borderWidth := s.params.BorderWidth()
 	borderColor := s.params.GetBorderColor()
 
 	img, err := imaging.Open(srcImageKey, imaging.AutoOrientation(true))

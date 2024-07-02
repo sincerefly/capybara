@@ -62,7 +62,7 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 
 	borderWidth := s.params.borderWidth
 	borderColor := s.params.borderColor
-	bottomContainerHeight := s.params.GetBottomContainerHeight()
+	bottomContainerHeight := s.params.BottomContainerHeight()
 
 	img, err := imaging.Open(srcImageKey, imaging.AutoOrientation(true))
 	if err != nil {
@@ -92,7 +92,7 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 		return err
 	}
 
-	if !s.params.GetWithoutSubtitle() {
+	if !s.params.WithoutSubtitle() {
 		text := s.subtitleText(meta)
 		err = s.drawSubtitle(dc, imgDim, titleDim, text)
 		if err != nil {
@@ -120,7 +120,7 @@ func (s *TextBottomProcessor) fontSize() float64 {
 }
 
 func (s *TextBottomProcessor) fixedHeight() float64 {
-	if s.params.GetWithoutSubtitle() {
+	if s.params.WithoutSubtitle() {
 		return 0
 	}
 	return float64(s.params.bottomContainerHeight / 10)

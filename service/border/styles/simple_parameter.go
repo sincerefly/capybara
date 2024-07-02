@@ -16,9 +16,9 @@ type SimpleParameter struct {
 func (p *SimpleParameter) JSONString() string {
 
 	resp := map[string]any{
-		"input":       p.GetInput(),
-		"output":      p.GetOutput(),
-		"borderWidth": p.GetBorderWidth(),
+		"input":       p.Input(),
+		"output":      p.Output(),
+		"borderWidth": p.BorderWidth(),
 		"borderColor": p.GetBorderColor(),
 	}
 
@@ -29,7 +29,7 @@ func (p *SimpleParameter) JSONString() string {
 	return string(b)
 }
 
-func (p *SimpleParameter) GetInput() string {
+func (p *SimpleParameter) Input() string {
 	return p.input
 }
 
@@ -37,7 +37,7 @@ func (p *SimpleParameter) SetInput(input string) {
 	p.input = input
 }
 
-func (p *SimpleParameter) GetOutput() string {
+func (p *SimpleParameter) Output() string {
 	return p.output
 }
 
@@ -49,7 +49,7 @@ func (p *SimpleParameter) SetBorderWidth(borderWidth int) {
 	p.borderWidth = borderWidth
 }
 
-func (p *SimpleParameter) GetBorderWidth() int {
+func (p *SimpleParameter) BorderWidth() int {
 	return p.borderWidth
 }
 
