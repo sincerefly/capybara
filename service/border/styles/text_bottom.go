@@ -11,9 +11,9 @@ import (
 	"github.com/sincerefly/capybara/structure"
 	"github.com/sincerefly/capybara/structure/layout"
 	"github.com/sincerefly/capybara/structure/text_struct"
-	"github.com/sincerefly/capybara/utils/exif_utils"
+	"github.com/sincerefly/capybara/utils/exif"
 	"github.com/sincerefly/capybara/utils/fileitem"
-	"github.com/sincerefly/capybara/utils/gg_utils"
+	"github.com/sincerefly/capybara/utils/ggwrapper"
 	"golang.org/x/image/colornames"
 	"image"
 	"image/color"
@@ -155,7 +155,7 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgDim structure.ImageDi
 
 	newRTexts, textDim := s.textContainerLayout(imgDim, nil, rTexts)
 
-	if err := gg_utils.DrawString(dc, newRTexts); err != nil {
+	if err := ggwrapper.DrawString(dc, newRTexts); err != nil {
 		return nil, err
 	}
 
@@ -178,13 +178,13 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgDim structure.Imag
 
 	newRTexts, _ := s.textContainerLayout(imgDim, &offsetPadding, rTexts)
 
-	if err := gg_utils.DrawString(dc, newRTexts); err != nil {
+	if err := ggwrapper.DrawString(dc, newRTexts); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *TextBottomProcessor) subtitleText(meta exif_utils.ExifMeta) string {
+func (s *TextBottomProcessor) subtitleText(meta exif.ExifMeta) string {
 	focalText := strings.Replace(meta.FocalLengthIn35mmFormatSafe(), " ", "", -1)
 	return fmt.Sprintf("%s f/%s %ss ISO%s", focalText, meta.ApertureSafe(), meta.ShutterSpeedSafe(), meta.ISOSafe())
 }

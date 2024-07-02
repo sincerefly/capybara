@@ -1,4 +1,4 @@
-package exif_utils
+package exif
 
 import (
 	"fmt"

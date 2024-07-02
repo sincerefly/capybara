@@ -1,4 +1,4 @@
-package font_utils
+package fonts
 
 import (
 	"fmt"

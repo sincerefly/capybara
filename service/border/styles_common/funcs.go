@@ -1,12 +1,12 @@
 package styles_common
 
 import (
-	"github.com/sincerefly/capybara/utils/exif_utils"
+	"github.com/sincerefly/capybara/utils/exif"
 	"github.com/sincerefly/capybara/utils/fileitem"
 )
 
-func GetFilesMetaByStore(store *fileitem.Store) ([]exif_utils.ExifMeta, error) {
-	client, err := exif_utils.NewExifClient()
+func GetFilesMetaByStore(store *fileitem.Store) ([]exif.ExifMeta, error) {
+	client, err := exif.NewExifClient()
 	if err != nil {
 		return nil, err
 	}
@@ -15,7 +15,7 @@ func GetFilesMetaByStore(store *fileitem.Store) ([]exif_utils.ExifMeta, error) {
 }
 
 func SupplementaryMetaToStore(store *fileitem.Store) (*fileitem.Store, error) {
-	client, err := exif_utils.NewExifClient()
+	client, err := exif.NewExifClient()
 	if err != nil {
 		return nil, err
 	}

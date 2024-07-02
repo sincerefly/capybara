@@ -3,7 +3,7 @@ package text_struct
 import (
 	"github.com/fogleman/gg"
 	"github.com/sincerefly/capybara/structure/layout"
-	"github.com/sincerefly/capybara/utils/font_utils"
+	"github.com/sincerefly/capybara/utils/fonts"
 	"image/color"
 )
 
@@ -28,7 +28,7 @@ func NewRichText(text, fontPath string, fontSize float64, color color.Color) Ric
 func (rt *RichText) Context(width, height int) (*gg.Context, error) {
 	dc := gg.NewContext(width, height)
 	dc.SetColor(rt.color)
-	face, err := font_utils.LoadFontFace(rt.fontPath, rt.fontSize, rt.fontSpecified)
+	face, err := fonts.LoadFontFace(rt.fontPath, rt.fontSize, rt.fontSpecified)
 	if err != nil {
 		return nil, err
 	}
