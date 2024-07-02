@@ -1,9 +1,5 @@
 package exif
 
-import (
-	"github.com/sincerefly/capybara/structure/tagname"
-)
-
 type UniversalParser struct {
 	meta ExifMeta
 }
@@ -13,23 +9,23 @@ func NewUniversalParser(meta ExifMeta) *UniversalParser {
 }
 
 func (p *UniversalParser) Make() (string, error) {
-	return p.meta.GetString(tagname.Make)
+	return p.meta.GetString(TagMake)
 }
 
 func (p *UniversalParser) MakeSafe() string {
-	return p.meta.GetStringSafe(tagname.Make)
+	return p.meta.GetStringSafe(TagMake)
 }
 
 func (p *UniversalParser) Model() (string, error) {
-	return p.meta.GetString(tagname.Model)
+	return p.meta.GetString(TagModel)
 }
 
 func (p *UniversalParser) ModelSafe() string {
-	return p.meta.GetStringSafe(tagname.Model)
+	return p.meta.GetStringSafe(TagModel)
 }
 
 func (p *UniversalParser) FocalLengthIn35mmFormat() (string, error) {
-	return p.meta.GetString(tagname.FocalLengthIn35mmFormat)
+	return p.meta.GetString(TagFocalLengthIn35mmFormat)
 }
 
 func (p *UniversalParser) FocalLengthIn35mmFormatSafe() string {
@@ -41,25 +37,25 @@ func (p *UniversalParser) FocalLengthIn35mmFormatSafe() string {
 }
 
 func (p *UniversalParser) Aperture() (string, error) {
-	return p.meta.GetString(tagname.Aperture)
+	return p.meta.GetString(TagAperture)
 }
 
 func (p *UniversalParser) ApertureSafe() string {
-	return p.meta.GetStringSafe(tagname.Aperture)
+	return p.meta.GetStringSafe(TagAperture)
 }
 
 func (p *UniversalParser) ShutterSpeed() (string, error) {
-	return p.meta.GetString(tagname.ShutterSpeed)
+	return p.meta.GetString(TagShutterSpeed)
 }
 
 func (p *UniversalParser) ShutterSpeedSafe() string {
-	return p.meta.GetStringSafe(tagname.ShutterSpeed)
+	return p.meta.GetStringSafe(TagShutterSpeed)
 }
 
 func (p *UniversalParser) ISO() (string, error) {
-	return p.meta.GetString(tagname.ISO)
+	return p.meta.GetString(TagISO)
 }
 
 func (p *UniversalParser) ISOSafe() string {
-	return p.meta.GetStringSafe(tagname.ISO)
+	return p.meta.GetStringSafe(TagISO)
 }

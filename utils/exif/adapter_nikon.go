@@ -2,7 +2,6 @@ package exif
 
 import (
 	"fmt"
-	"github.com/sincerefly/capybara/structure/tagname"
 	"strconv"
 	"strings"
 )
@@ -16,29 +15,29 @@ func NewNikonParser(meta ExifMeta) *NikonParser {
 }
 
 func (p *NikonParser) Make() (string, error) {
-	return p.meta.GetString(tagname.Make)
+	return p.meta.GetString(TagMake)
 }
 
 func (p *NikonParser) MakeSafe() string {
-	return p.meta.GetStringSafe(tagname.Make)
+	return p.meta.GetStringSafe(TagMake)
 }
 
 func (p *NikonParser) Model() (string, error) {
-	return p.meta.GetString(tagname.Model)
+	return p.meta.GetString(TagModel)
 }
 
 func (p *NikonParser) ModelSafe() string {
-	return p.meta.GetStringSafe(tagname.Model)
+	return p.meta.GetStringSafe(TagModel)
 }
 
 func (p *NikonParser) FocalLengthIn35mmFormat() (string, error) {
-	v, err := p.meta.GetString(tagname.FocalLengthIn35mmFormat)
+	v, err := p.meta.GetString(TagFocalLengthIn35mmFormat)
 	if err == nil {
 		return v, nil
 	}
 
 	// focal * scale
-	focalStr, err := p.meta.GetString(tagname.FocalLength)
+	focalStr, err := p.meta.GetString(TagFocalLength)
 	if err != nil {
 		return "", err
 	}
@@ -46,7 +45,7 @@ func (p *NikonParser) FocalLengthIn35mmFormat() (string, error) {
 
 	var focal string
 	if len(parts) == 0 {
-		return "", fmt.Errorf("%s can't be parserd", tagname.FocalLength)
+		return "", fmt.Errorf("%s can't be parserd", TagFocalLength)
 	}
 	focal = parts[0]
 
@@ -55,7 +54,7 @@ func (p *NikonParser) FocalLengthIn35mmFormat() (string, error) {
 		return "", err
 	}
 
-	scaleFactor35efl, err := p.meta.GetFloat(tagname.ScaleFactor35efl)
+	scaleFactor35efl, err := p.meta.GetFloat(TagScaleFactor35efl)
 	if err != nil {
 		return "", err
 	}
@@ -74,25 +73,25 @@ func (p *NikonParser) FocalLengthIn35mmFormatSafe() string {
 }
 
 func (p *NikonParser) Aperture() (string, error) {
-	return p.meta.GetString(tagname.Aperture)
+	return p.meta.GetString(TagAperture)
 }
 
 func (p *NikonParser) ApertureSafe() string {
-	return p.meta.GetStringSafe(tagname.Aperture)
+	return p.meta.GetStringSafe(TagAperture)
 }
 
 func (p *NikonParser) ShutterSpeed() (string, error) {
-	return p.meta.GetString(tagname.ShutterSpeed)
+	return p.meta.GetString(TagShutterSpeed)
 }
 
 func (p *NikonParser) ShutterSpeedSafe() string {
-	return p.meta.GetStringSafe(tagname.ShutterSpeed)
+	return p.meta.GetStringSafe(TagShutterSpeed)
 }
 
 func (p *NikonParser) ISO() (string, error) {
-	return p.meta.GetString(tagname.ISO)
+	return p.meta.GetString(TagISO)
 }
 
 func (p *NikonParser) ISOSafe() string {
-	return p.meta.GetStringSafe(tagname.ISO)
+	return p.meta.GetStringSafe(TagISO)
 }

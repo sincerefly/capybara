@@ -1,9 +1,5 @@
 package exif
 
-import (
-	"github.com/sincerefly/capybara/structure/tagname"
-)
-
 type Adapter interface {
 	Make() (string, error)
 	MakeSafe() string
@@ -20,7 +16,7 @@ type Adapter interface {
 }
 
 func makeAdapter(meta ExifMeta) Adapter {
-	switch meta.GetStringSafe(tagname.Make) {
+	switch meta.GetStringSafe(TagMake) {
 	case "Nikon":
 		return NewNikonParser(meta)
 	default:
