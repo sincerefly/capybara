@@ -45,7 +45,7 @@ func (s *SimpleProcessor) runner(fi fileitem.FileItem) error {
 		log.Fatalf("failed to open image %v", err)
 	}
 
-	// src image dimension
+	// src image size
 	width := img.Bounds().Dx()
 	height := img.Bounds().Dy()
 

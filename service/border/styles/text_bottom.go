@@ -69,15 +69,14 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 		log.Fatalf("failed to open image %v", err)
 	}
 
-	// image dimensions
-	imgDim := structure.ImageDimension{
-		SrcWidth:  img.Bounds().Dx(),
-		SrcHeight: img.Bounds().Dy(),
-		DstWidth:  img.Bounds().Dx() + 2*borderWidth,
-		DstHeight: img.Bounds().Dy() + 2*borderWidth + bottomContainerHeight,
-	}
+	imgSizePair := structure.NewIntSizePair(
+		img.Bounds().Dx(),
+		img.Bounds().Dy(),
+		img.Bounds().Dx()+2*borderWidth,
+		img.Bounds().Dy()+2*borderWidth+bottomContainerHeight,
+	)
 
-	dst := imaging.New(imgDim.DstWidth, imgDim.DstHeight, borderColor)
+	dst := imaging.New(imgSizePair.DstWidth(), imgSizePair.DstHeight(), borderColor)
 
 	// paste the original image onto a new background
 	dst = imaging.Paste(dst, img, image.Pt(borderWidth, borderWidth))
@@ -86,7 +85,7 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 	dc := gg.NewContextForImage(dst)
 
 	// draw title and subtitle
-	titleDim, err := s.drawTitle(dc, imgDim, middleText, rightText)
+	titleSize, err := s.drawTitle(dc, imgSizePair, middleText, rightText)
 	if err != nil {
 		log.Fatalf("failed to draw title %v", err)
 		return err
@@ -94,7 +93,7 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 
 	if !s.params.WithoutSubtitle() {
 		subtitle := s.subtitle(meta)
-		err = s.drawSubtitle(dc, imgDim, titleDim, subtitle)
+		err = s.drawSubtitle(dc, imgSizePair, titleSize, subtitle)
 		if err != nil {
 			log.Fatalf("failed to draw sub-title %v", err)
 			return err
@@ -126,7 +125,7 @@ func (s *TextBottomProcessor) fixedHeight() float64 {
 	return float64(s.params.bottomContainerHeight / 10)
 }
 
-func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgDim structure.ImageDimension, middleText, rightText string) (*structure.BaseDimension, error) {
+func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgSizePair structure.IntSizePair, middleText, rightText string) (*structure.FloatSize, error) {
 
 	const leftText = "Shot on"
 
@@ -153,7 +152,7 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgDim structure.ImageDi
 	)
 	rTexts := []text.RichText{leftRt, middleRt, rightRt}
 
-	newRTexts, textDim := s.textContainerLayout(imgDim, nil, rTexts)
+	newRTexts, textDim := s.textContainerLayout(imgSizePair, nil, rTexts)
 
 	if err := ggwrapper.DrawString(dc, newRTexts); err != nil {
 		return nil, err
@@ -162,7 +161,7 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgDim structure.ImageDi
 	return &textDim, nil
 }
 
-func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgDim structure.ImageDimension, titleDim *structure.BaseDimension, subtitle string) error {
+func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair structure.IntSizePair, titleDim *structure.FloatSize, subtitle string) error {
 
 	fontSize := s.fontSize()
 
@@ -176,7 +175,7 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgDim structure.Imag
 
 	offsetPadding := layout.NewPaddingTop(titleDim.Height * 1.2)
 
-	newRTexts, _ := s.textContainerLayout(imgDim, &offsetPadding, rTexts)
+	newRTexts, _ := s.textContainerLayout(imgSizePair, &offsetPadding, rTexts)
 
 	if err := ggwrapper.DrawString(dc, newRTexts); err != nil {
 		return err
@@ -190,18 +189,18 @@ func (s *TextBottomProcessor) subtitle(meta exif.ExifMeta) string {
 }
 
 // calculate text container start x,y position
-func (s *TextBottomProcessor) calculateBaseXY(imgDim structure.ImageDimension, textDim structure.BaseDimension) layout.Position {
+func (s *TextBottomProcessor) calculateBaseXY(imgSizePair structure.IntSizePair, textDim structure.FloatSize) layout.Position {
 	borderWidth := s.params.borderWidth
 	bottomContainerHeight := s.params.bottomContainerHeight
 
-	baseX := float64(imgDim.DstWidth/2) - textDim.Width/2
-	baseY := float64(2*borderWidth+imgDim.SrcHeight+bottomContainerHeight/2) - textDim.Height/2 - s.fixedHeight()
+	baseX := float64(imgSizePair.DstWidth()/2) - textDim.Width/2
+	baseY := float64(2*borderWidth+imgSizePair.SrcHeight()+bottomContainerHeight/2) - textDim.Height/2 - s.fixedHeight()
 
 	return layout.NewPosition(baseX, baseY)
 }
 
-func (s *TextBottomProcessor) textContainerLayout(imgDim structure.ImageDimension, offsetPadding *layout.Padding,
-	rTexts []text.RichText) ([]text.RichText, structure.BaseDimension) {
+func (s *TextBottomProcessor) textContainerLayout(imgSizePair structure.IntSizePair, offsetPadding *layout.Padding,
+	rTexts []text.RichText) ([]text.RichText, structure.FloatSize) {
 
 	const spacing = " "
 
@@ -218,7 +217,7 @@ func (s *TextBottomProcessor) textContainerLayout(imgDim structure.ImageDimensio
 
 	// calculate text container size and padding-left info
 	for i, rText := range rTexts {
-		dc, _ := rText.Context(imgDim.DstWidth, imgDim.DstHeight)
+		dc, _ := rText.Context(imgSizePair.DstWidth(), imgSizePair.DstHeight())
 		width, height := dc.MeasureString(rText.Text())
 
 		padding := layout.NewPadding(paddingLeft+offsetPaddingLeft, offsetPaddingTop)
@@ -236,12 +235,12 @@ func (s *TextBottomProcessor) textContainerLayout(imgDim structure.ImageDimensio
 		}
 	}
 
-	textContainerDim := structure.BaseDimension{
+	textContainerSize := structure.FloatSize{
 		Width:  textContainerWidth,
 		Height: textContainerHeight,
 	}
 
-	basePosition := s.calculateBaseXY(imgDim, textContainerDim)
+	basePosition := s.calculateBaseXY(imgSizePair, textContainerSize)
 
 	// append position to rich text
 	newRTexts := make([]text.RichText, len(rTexts))
@@ -252,5 +251,5 @@ func (s *TextBottomProcessor) textContainerLayout(imgDim structure.ImageDimensio
 		rText.SetPosition(drawPosition)
 		newRTexts[i] = rText
 	}
-	return newRTexts, textContainerDim
+	return newRTexts, textContainerSize
 }
