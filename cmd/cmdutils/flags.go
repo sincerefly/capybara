@@ -1,4 +1,4 @@
-package cobra_utils
+package cmdutils
 
 import (
 	"github.com/spf13/pflag"

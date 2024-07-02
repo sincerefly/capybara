@@ -4,6 +4,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/sincerefly/capybara/base"
 	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/cmd/cmdutils"
 	"github.com/sincerefly/capybara/global"
 	"github.com/spf13/cobra"
 	v "github.com/spf13/viper"
@@ -69,7 +70,7 @@ func initConfig() {
 	if cfgFile == "" {
 		home, err := homedir.Dir()
 
-		checkErr(err)
+		cmdutils.CheckErr(err)
 		v.AddConfigPath(".")
 		v.AddConfigPath(home)
 		v.AddConfigPath("/etc/border/")
