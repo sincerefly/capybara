@@ -1,8 +1,8 @@
 package styles_common
 
 import (
+	"github.com/sincerefly/capybara/structure/fileitem"
 	"github.com/sincerefly/capybara/utils/exif"
-	"github.com/sincerefly/capybara/utils/fileitem"
 )
 
 func GetFilesMetaByStore(store *fileitem.Store) ([]exif.ExifMeta, error) {

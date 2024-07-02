@@ -4,7 +4,7 @@ import (
 	"github.com/disintegration/imaging"
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/global"
-	"github.com/sincerefly/capybara/utils/fileitem"
+	"github.com/sincerefly/capybara/structure/fileitem"
 	"image"
 )
 
