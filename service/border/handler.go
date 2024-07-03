@@ -13,12 +13,26 @@ import (
 	"strings"
 )
 
-type StyleProcessor struct {
-	style  Style
-	params Parameter
+type Style string
+
+const (
+	StyleSimple     Style = "simple"
+	StyleTextBottom Style = "text_bottom"
+)
+
+type Parameterizable interface {
+	Input() string
+	SetInput(input string)
+	Output() string
+	SetOutput(output string)
 }
 
-func NewStyleProcessor(style Style, params Parameter) *StyleProcessor {
+type StyleProcessor struct {
+	style  Style
+	params Parameterizable
+}
+
+func NewStyleProcessor(style Style, params Parameterizable) *StyleProcessor {
 	return &StyleProcessor{
 		style:  style,
 		params: params,
