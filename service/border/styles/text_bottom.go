@@ -183,7 +183,7 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair size.Pair
 	return nil
 }
 
-func (s *TextBottomProcessor) subtitle(meta exif.ExifMeta) string {
+func (s *TextBottomProcessor) subtitle(meta exif.Meta) string {
 	focalText := strings.ReplaceAll(meta.FocalLengthIn35mmFormatSafe(), " ", "")
 	return fmt.Sprintf("%s f/%s %ss ISO%s", focalText, meta.ApertureSafe(), meta.ShutterSpeedSafe(), meta.ISOSafe())
 }

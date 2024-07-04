@@ -1,10 +1,10 @@
 package exif
 
 type UniversalParser struct {
-	meta ExifMeta
+	meta Meta
 }
 
-func NewUniversalParser(meta ExifMeta) *UniversalParser {
+func NewUniversalParser(meta Meta) *UniversalParser {
 	return &UniversalParser{meta: meta}
 }
 

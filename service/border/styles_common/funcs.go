@@ -5,7 +5,7 @@ import (
 	"github.com/sincerefly/capybara/utils/exif"
 )
 
-func GetFilesMetaByStore(store *fileitem.Store) ([]exif.ExifMeta, error) {
+func GetFilesMetaByStore(store *fileitem.Store) ([]exif.Meta, error) {
 	client, err := exif.NewExifClient()
 	if err != nil {
 		return nil, err

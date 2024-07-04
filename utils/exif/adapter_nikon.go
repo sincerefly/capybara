@@ -7,10 +7,10 @@ import (
 )
 
 type NikonParser struct {
-	meta ExifMeta
+	meta Meta
 }
 
-func NewNikonParser(meta ExifMeta) *NikonParser {
+func NewNikonParser(meta Meta) *NikonParser {
 	return &NikonParser{meta: meta}
 }
 

@@ -6,65 +6,65 @@ import (
 	"github.com/barasher/go-exiftool"
 )
 
-type ExifClient struct {
+type Client struct {
 	etClient *exiftool.Exiftool
 }
 
-func NewExifClient() (*ExifClient, error) {
+func NewExifClient() (*Client, error) {
 	client, err := exiftool.NewExiftool()
 	if err != nil {
 		return nil, fmt.Errorf("failed to create ExifTool instance: %w", err)
 	}
-	return &ExifClient{etClient: client}, nil
+	return &Client{etClient: client}, nil
 }
 
-func (c *ExifClient) ExtractMetadata(paths []string) []ExifMeta {
+func (c *Client) ExtractMetadata(paths []string) []Meta {
 
-	metas := make([]ExifMeta, 0, len(paths))
+	metas := make([]Meta, 0, len(paths))
 	for _, etMetadata := range c.etClient.ExtractMetadata(paths...) {
 		metas = append(metas, NewExifMeta(etMetadata))
 	}
 	return metas
 }
 
-func (c *ExifClient) GetFilesMetaBySlice(paths []string) []ExifMeta {
-	metas := make([]ExifMeta, 0, len(paths))
+func (c *Client) GetFilesMetaBySlice(paths []string) []Meta {
+	metas := make([]Meta, 0, len(paths))
 	for _, etMetadata := range c.etClient.ExtractMetadata(paths...) {
-		metas = append(metas, ExifMeta{etMetadata: etMetadata})
+		metas = append(metas, Meta{etMetadata: etMetadata})
 	}
 	return metas
 }
 
-func (c *ExifClient) GetFileMeta(path string) ExifMeta {
+func (c *Client) GetFileMeta(path string) Meta {
 	metas := c.etClient.ExtractMetadata(path)
 	if len(metas) == 1 {
-		return ExifMeta{etMetadata: metas[0]}
+		return Meta{etMetadata: metas[0]}
 	}
-	return ExifMeta{
+	return Meta{
 		etMetadata: exiftool.FileMetadata{Err: errors.New("extract, but got empty result")},
 	}
 }
 
-type ExifMeta struct {
+type Meta struct {
 	etMetadata exiftool.FileMetadata
 }
 
-func NewExifMeta(etMetadata exiftool.FileMetadata) ExifMeta {
-	return ExifMeta{
+func NewExifMeta(etMetadata exiftool.FileMetadata) Meta {
+	return Meta{
 		etMetadata: etMetadata,
 	}
 }
 
 // PrimitiveMeta Get exiftool.FileMetadata
-func (m *ExifMeta) PrimitiveMeta() exiftool.FileMetadata {
+func (m *Meta) PrimitiveMeta() exiftool.FileMetadata {
 	return m.etMetadata
 }
 
-func (m *ExifMeta) GetString(k string) (string, error) {
+func (m *Meta) GetString(k string) (string, error) {
 	return m.etMetadata.GetString(k)
 }
 
-func (m *ExifMeta) GetStringSafe(k string) string {
+func (m *Meta) GetStringSafe(k string) string {
 	v, err := m.etMetadata.GetString(k)
 	if err != nil {
 		return ""
@@ -72,11 +72,11 @@ func (m *ExifMeta) GetStringSafe(k string) string {
 	return v
 }
 
-func (m *ExifMeta) GetStrings(k string) ([]string, error) {
+func (m *Meta) GetStrings(k string) ([]string, error) {
 	return m.etMetadata.GetStrings(k)
 }
 
-func (m *ExifMeta) GetStringsSafe(k string) []string {
+func (m *Meta) GetStringsSafe(k string) []string {
 	v, err := m.etMetadata.GetStrings(k)
 	if err != nil {
 		return []string{}
@@ -84,11 +84,11 @@ func (m *ExifMeta) GetStringsSafe(k string) []string {
 	return v
 }
 
-func (m *ExifMeta) GetInt(k string) (int64, error) {
+func (m *Meta) GetInt(k string) (int64, error) {
 	return m.etMetadata.GetInt(k)
 }
 
-func (m *ExifMeta) GetIntSafe(k string) int64 {
+func (m *Meta) GetIntSafe(k string) int64 {
 	v, err := m.etMetadata.GetInt(k)
 	if err != nil {
 		return 0
@@ -96,11 +96,11 @@ func (m *ExifMeta) GetIntSafe(k string) int64 {
 	return v
 }
 
-func (m *ExifMeta) GetFloat(k string) (float64, error) {
+func (m *Meta) GetFloat(k string) (float64, error) {
 	return m.etMetadata.GetFloat(k)
 }
 
-func (m *ExifMeta) GetFloatSafe(k string) float64 {
+func (m *Meta) GetFloatSafe(k string) float64 {
 	v, err := m.etMetadata.GetFloat(k)
 	if err != nil {
 		return 0

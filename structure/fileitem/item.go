@@ -16,7 +16,7 @@ type FileItem struct {
 	sourceBase  string // e.g. /home/input/ or input/
 	targetBase  string // e.g. /home/target/
 
-	exifMeta exif.ExifMeta
+	exifMeta exif.Meta
 }
 
 func NewFileItem(filename string) FileItem {
@@ -112,10 +112,10 @@ func (f *FileItem) GetTargetKey() string {
 	return filepath.Join(f.targetBase, f.innerPath, f.filename)
 }
 
-func (f *FileItem) SetExifMeta(meta exif.ExifMeta) {
+func (f *FileItem) SetExifMeta(meta exif.Meta) {
 	f.exifMeta = meta
 }
 
-func (f *FileItem) GetExifMeta() exif.ExifMeta {
+func (f *FileItem) GetExifMeta() exif.Meta {
 	return f.exifMeta
 }

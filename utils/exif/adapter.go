@@ -15,7 +15,7 @@ type Adapter interface {
 	ISOSafe() string
 }
 
-func makeAdapter(meta ExifMeta) Adapter {
+func makeAdapter(meta Meta) Adapter {
 	switch meta.GetStringSafe(TagMake) {
 	case "Nikon":
 		return NewNikonParser(meta)
@@ -24,50 +24,50 @@ func makeAdapter(meta ExifMeta) Adapter {
 	}
 }
 
-func (m *ExifMeta) Make() (string, error) {
+func (m *Meta) Make() (string, error) {
 	return makeAdapter(*m).Make()
 }
 
-func (m *ExifMeta) MakeSafe() string {
+func (m *Meta) MakeSafe() string {
 	return makeAdapter(*m).MakeSafe()
 }
 
-func (m *ExifMeta) Model() (string, error) {
+func (m *Meta) Model() (string, error) {
 	return makeAdapter(*m).Model()
 }
 
-func (m *ExifMeta) ModelSafe() string {
+func (m *Meta) ModelSafe() string {
 	return makeAdapter(*m).ModelSafe()
 }
 
-func (m *ExifMeta) FocalLengthIn35mmFormat() (string, error) {
+func (m *Meta) FocalLengthIn35mmFormat() (string, error) {
 	return makeAdapter(*m).FocalLengthIn35mmFormat()
 }
 
-func (m *ExifMeta) FocalLengthIn35mmFormatSafe() string {
+func (m *Meta) FocalLengthIn35mmFormatSafe() string {
 	return makeAdapter(*m).FocalLengthIn35mmFormatSafe()
 }
 
-func (m *ExifMeta) Aperture() (string, error) {
+func (m *Meta) Aperture() (string, error) {
 	return makeAdapter(*m).Aperture()
 }
 
-func (m *ExifMeta) ApertureSafe() string {
+func (m *Meta) ApertureSafe() string {
 	return makeAdapter(*m).ApertureSafe()
 }
 
-func (m *ExifMeta) ShutterSpeed() (string, error) {
+func (m *Meta) ShutterSpeed() (string, error) {
 	return makeAdapter(*m).ShutterSpeed()
 }
 
-func (m *ExifMeta) ShutterSpeedSafe() string {
+func (m *Meta) ShutterSpeedSafe() string {
 	return makeAdapter(*m).ShutterSpeedSafe()
 }
 
-func (m *ExifMeta) ISO() (string, error) {
+func (m *Meta) ISO() (string, error) {
 	return makeAdapter(*m).ISO()
 }
 
-func (m *ExifMeta) ISOSafe() string {
+func (m *Meta) ISOSafe() string {
 	return makeAdapter(*m).ISOSafe()
 }
