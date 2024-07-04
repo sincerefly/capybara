@@ -8,9 +8,9 @@ import (
 	"github.com/sincerefly/capybara/global"
 	"github.com/sincerefly/capybara/resources"
 	"github.com/sincerefly/capybara/service/border/styles_common"
-	"github.com/sincerefly/capybara/structure"
 	"github.com/sincerefly/capybara/structure/fileitem"
 	"github.com/sincerefly/capybara/structure/layout"
+	"github.com/sincerefly/capybara/structure/size"
 	"github.com/sincerefly/capybara/structure/text"
 	"github.com/sincerefly/capybara/utils/exif"
 	"github.com/sincerefly/capybara/utils/ggwrapper"
@@ -69,7 +69,7 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 		log.Fatalf("failed to open image %v", err)
 	}
 
-	imgSizePair := structure.NewIntSizePair(
+	imgSizePair := size.NewSizePair(
 		img.Bounds().Dx(),
 		img.Bounds().Dy(),
 		img.Bounds().Dx()+2*borderWidth,
@@ -110,12 +110,12 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 	return nil
 }
 
-func (s *TextBottomProcessor) fontSize() float64 {
-	size := float64(s.params.bottomContainerHeight / 3)
-	if size > 150 {
+func (s *TextBottomProcessor) fixedFontSize() float64 {
+	fixedSize := float64(s.params.bottomContainerHeight / 3)
+	if fixedSize > 150 {
 		return 150
 	}
-	return size
+	return fixedSize
 }
 
 func (s *TextBottomProcessor) fixedHeight() float64 {
@@ -125,12 +125,12 @@ func (s *TextBottomProcessor) fixedHeight() float64 {
 	return float64(s.params.bottomContainerHeight / 10)
 }
 
-func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgSizePair structure.IntSizePair, middleText, rightText string) (*structure.FloatSize, error) {
+func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgSizePair size.Pair, middleText, rightText string) (*size.FloatSize, error) {
 
 	const leftText = "Shot on"
 
 	// font size
-	fontSize := s.fontSize()
+	fontSize := s.fixedFontSize()
 
 	leftRt := text.NewRichText(
 		leftText,
@@ -152,18 +152,18 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgSizePair structure.In
 	)
 	rTexts := []text.RichText{leftRt, middleRt, rightRt}
 
-	newRTexts, textDim := s.textContainerLayout(imgSizePair, nil, rTexts)
+	newRTexts, textSize := s.textContainerLayout(imgSizePair, nil, rTexts)
 
 	if err := ggwrapper.DrawString(dc, newRTexts); err != nil {
 		return nil, err
 	}
 
-	return &textDim, nil
+	return &textSize, nil
 }
 
-func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair structure.IntSizePair, titleDim *structure.FloatSize, subtitle string) error {
+func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair size.Pair, titleSize *size.FloatSize, subtitle string) error {
 
-	fontSize := s.fontSize()
+	fontSize := s.fixedFontSize()
 
 	richText := text.NewRichText(
 		subtitle, // e.g., "70mm f/4.0 1/800s ISO250"
@@ -173,7 +173,7 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair structure
 	)
 	rTexts := []text.RichText{richText}
 
-	offsetPadding := layout.NewPaddingTop(titleDim.Height * 1.2)
+	offsetPadding := layout.NewPaddingTop(titleSize.Height * 1.2)
 
 	newRTexts, _ := s.textContainerLayout(imgSizePair, &offsetPadding, rTexts)
 
@@ -184,12 +184,12 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair structure
 }
 
 func (s *TextBottomProcessor) subtitle(meta exif.ExifMeta) string {
-	focalText := strings.Replace(meta.FocalLengthIn35mmFormatSafe(), " ", "", -1)
+	focalText := strings.ReplaceAll(meta.FocalLengthIn35mmFormatSafe(), " ", "")
 	return fmt.Sprintf("%s f/%s %ss ISO%s", focalText, meta.ApertureSafe(), meta.ShutterSpeedSafe(), meta.ISOSafe())
 }
 
 // calculate text container start x,y position
-func (s *TextBottomProcessor) calculateBaseXY(imgSizePair structure.IntSizePair, textDim structure.FloatSize) layout.Position {
+func (s *TextBottomProcessor) calculateBaseXY(imgSizePair size.Pair, textDim size.FloatSize) layout.Position {
 	borderWidth := s.params.borderWidth
 	bottomContainerHeight := s.params.bottomContainerHeight
 
@@ -199,8 +199,8 @@ func (s *TextBottomProcessor) calculateBaseXY(imgSizePair structure.IntSizePair,
 	return layout.NewPosition(baseX, baseY)
 }
 
-func (s *TextBottomProcessor) textContainerLayout(imgSizePair structure.IntSizePair, offsetPadding *layout.Padding,
-	rTexts []text.RichText) ([]text.RichText, structure.FloatSize) {
+func (s *TextBottomProcessor) textContainerLayout(imgSizePair size.Pair, offsetPadding *layout.Padding,
+	rTexts []text.RichText) ([]text.RichText, size.FloatSize) {
 
 	const spacing = " "
 
@@ -235,7 +235,7 @@ func (s *TextBottomProcessor) textContainerLayout(imgSizePair structure.IntSizeP
 		}
 	}
 
-	textContainerSize := structure.FloatSize{
+	textContainerSize := size.FloatSize{
 		Width:  textContainerWidth,
 		Height: textContainerHeight,
 	}
