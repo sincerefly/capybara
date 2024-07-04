@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/golang/freetype/truetype"
 	"github.com/sincerefly/capybara/resources"
+	"github.com/sincerefly/capybara/utils/fsutil"
 	"golang.org/x/image/font"
 	"os"
 )
@@ -15,15 +16,21 @@ func LoadFontFace(fontPath string, fontSize float64, fontSpecified bool) (font.F
 	var ok bool
 
 	if fontSpecified {
-		_, err := os.Stat(fontPath)
-		if os.IsExist(err) {
-			content, err := os.ReadFile(fontPath)
-			if err != nil {
-				return nil, fmt.Errorf("failed to load specified font: %v, path: %s", err, fontPath)
-			}
-			fontBytes = content
-			ok = true
+		exist, err := fsutil.Exists(fontPath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to load specified font: %v, path: %s", err, fontPath)
 		}
+		if !exist {
+			return nil, fmt.Errorf("failed to load specified font: not found, path: %s", fontPath)
+		}
+
+		content, err := os.ReadFile(fontPath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to load specified font: %v, path: %s", err, fontPath)
+		}
+		fontBytes = content
+		ok = true
+
 	}
 
 	if !ok {

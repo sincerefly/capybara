@@ -35,6 +35,10 @@ func ListFiles(root string) ([]string, error) {
 	return paths, nil
 }
 
+func Exists(path string) (bool, error) {
+	return afero.Exists(appFs, path)
+}
+
 func ExecutableDir() (string, error) {
 
 	executablePath, err := os.Executable()

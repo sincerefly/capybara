@@ -134,19 +134,19 @@ func (s *TextBottomProcessor) drawTitle(dc *gg.Context, imgSizePair size.Pair, m
 
 	leftRt := text.NewRichText(
 		leftText,
-		resources.AlibabaPuHiTi3_Light_TTF,
+		resources.AlibabaPuHiTi3LightTTF,
 		fontSize,
 		color.Black,
 	)
 	middleRt := text.NewRichText(
 		middleText,
-		resources.AlibabaPuHiTi3_Bold_TTF,
+		resources.AlibabaPuHiTi3BoldTTF,
 		fontSize,
 		colornames.Red,
 	)
 	rightRt := text.NewRichText(
 		rightText,
-		resources.AlibabaPuHiTi3_Bold_TTF,
+		resources.AlibabaPuHiTi3BoldTTF,
 		fontSize,
 		colornames.Black,
 	)
@@ -167,7 +167,7 @@ func (s *TextBottomProcessor) drawSubtitle(dc *gg.Context, imgSizePair size.Pair
 
 	richText := text.NewRichText(
 		subtitle, // e.g., "70mm f/4.0 1/800s ISO250"
-		resources.AlibabaPuHiTi3_Light_TTF,
+		resources.AlibabaPuHiTi3LightTTF,
 		fontSize*0.8,
 		colornames.Gray,
 	)

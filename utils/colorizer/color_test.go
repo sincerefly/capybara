@@ -1,7 +1,7 @@
 package colorizer
 
 import (
-	"github.com/magiconair/properties/assert"
+	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
 )
