@@ -1,4 +1,11 @@
 # Capybara 
+
+<p>
+    <picture>
+      <img src="docs/logo/capybara.png" width="180" />
+    </picture>
+</p>
+
 ![](https://github.com/sincerefly/capybara/workflows/Build/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/sincerefly/capybara)](https://goreportcard.com/report/github.com/sincerefly/capybara)
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-_red.svg"></a>
