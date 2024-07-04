@@ -6,8 +6,7 @@ import (
 	"github.com/sincerefly/capybara/constants"
 	"github.com/sincerefly/capybara/service/border/styles"
 	"github.com/sincerefly/capybara/structure/fileitem"
-	"github.com/sincerefly/capybara/utils"
-	"github.com/spf13/afero"
+	"github.com/sincerefly/capybara/utils/fsutil"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -41,11 +40,6 @@ func NewStyleProcessor(style Style, params Parameterizable) *StyleProcessor {
 
 func (s *StyleProcessor) Run() {
 
-	style := s.style
-	if !slices.Contains(s.Supports(), style) { // check
-		log.Fatal("unsupported style")
-	}
-
 	fiStore, err := s.collectInputs()
 	if err != nil {
 		log.Fatal(err)
@@ -55,7 +49,7 @@ func (s *StyleProcessor) Run() {
 		log.Fatal(err)
 	}
 
-	switch style {
+	switch s.style {
 	case StyleSimple:
 		params := s.params.(*styles.SimpleParameter)
 		err = styles.NewSimpleProcessor(params, fiStore).Run()
@@ -69,10 +63,6 @@ func (s *StyleProcessor) Run() {
 	log.Info("finished")
 }
 
-func (s *StyleProcessor) Supports() []Style {
-	return []Style{StyleSimple, StyleTextBottom}
-}
-
 func (s *StyleProcessor) SupportExtensions() []string {
 	return []string{constants.ExtJPG, constants.ExtPNG, constants.ExtJPEG}
 }
@@ -84,8 +74,7 @@ func (s *StyleProcessor) collectInputs() (*fileitem.Store, error) {
 	input := s.params.Input()
 	output := s.params.Output()
 
-	fs := afero.NewOsFs()
-	srcImagePaths, err := utils.GetAllFiles(fs, s.params.Input())
+	srcImagePaths, err := fsutil.ListFiles(s.params.Input())
 	if err != nil {
 		return nil, fmt.Errorf("load input folder failed, %v", err)
 	}
@@ -121,7 +110,7 @@ func (s *StyleProcessor) collectInputs() (*fileitem.Store, error) {
 // prepare output dirs
 func (s *StyleProcessor) prepareOutputDirs(fiStore *fileitem.Store) error {
 	for _, outputDir := range fiStore.GetTargetPaths() {
-		if err := utils.MkdirAll(outputDir); err != nil {
+		if err := fsutil.MkdirAll(outputDir); err != nil {
 			return err
 		}
 	}

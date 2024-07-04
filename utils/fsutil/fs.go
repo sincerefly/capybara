@@ -1,4 +1,4 @@
-package utils
+package fsutil
 
 import (
 	"github.com/spf13/afero"
@@ -8,36 +8,35 @@ import (
 
 var appFs afero.Fs
 
-func MkdirAll(path string) error {
+func init() {
+	appFs = afero.NewOsFs()
+}
 
-	if appFs == nil {
-		appFs = afero.NewOsFs()
-	}
+func MkdirAll(path string) error {
 	fs := afero.NewOsFs()
 	return fs.MkdirAll(path, 0755)
 }
 
-// GetAllFiles all files
-func GetAllFiles(fs afero.Fs, root string) ([]string, error) {
-	var files []string
-
-	err := afero.Walk(fs, root, func(path string, info os.FileInfo, err error) error {
+func ListFiles(root string) ([]string, error) {
+	var paths []string
+	walkFn := func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 		if !info.IsDir() {
-			files = append(files, path)
+			paths = append(paths, path)
 		}
 		return nil
-	})
-
+	}
+	err := afero.Walk(appFs, root, walkFn)
 	if err != nil {
 		return nil, err
 	}
-	return files, nil
+	return paths, nil
 }
 
 func ExecutableDir() (string, error) {
+
 	executablePath, err := os.Executable()
 	if err != nil {
 		return "", err
