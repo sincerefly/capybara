@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 )
 
 type Style string
@@ -40,6 +41,7 @@ func NewStyleProcessor(style Style, params Parameterizable) *StyleProcessor {
 
 func (s *StyleProcessor) Run() {
 
+	start := time.Now()
 	fiStore, err := s.collectInputs()
 	if err != nil {
 		log.Fatal(err)
@@ -60,7 +62,8 @@ func (s *StyleProcessor) Run() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Info("finished")
+	costs := int(time.Since(start).Seconds())
+	log.Infof("finished in %ds", costs)
 }
 
 func (s *StyleProcessor) SupportExtensions() []string {
