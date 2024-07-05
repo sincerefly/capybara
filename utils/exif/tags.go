@@ -2,7 +2,7 @@ package exif
 
 const (
 	TagModel                   = "Model"
-	TagMake                    = "TagMake"
+	TagMake                    = "Make"
 	TagFocalLengthIn35mmFormat = "FocalLengthIn35mmFormat" // = TagFocalLength * TagScaleFactor35efl
 	TagFocalLength             = "FocalLength"
 	TagScaleFactor35efl        = "ScaleFactor35efl"
