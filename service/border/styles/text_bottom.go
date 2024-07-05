@@ -60,6 +60,10 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 	middleText := meta.ModelSafe()
 	rightText := meta.MakeSafe()
 
+	if rightText == "NIKON CORPORATION" { // shorten nikon make
+		rightText = "NIKON"
+	}
+
 	borderWidth := s.params.borderWidth
 	borderColor := s.params.borderColor
 	bottomContainerHeight := s.params.BottomContainerHeight()

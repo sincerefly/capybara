@@ -16,8 +16,8 @@ type Adapter interface {
 }
 
 func makeAdapter(meta Meta) Adapter {
-	switch meta.GetStringSafe(TagMake) {
-	case "Nikon":
+	switch MakeToCorporation(meta.GetStringSafe(TagMake)) {
+	case Nikon:
 		return NewNikonParser(meta)
 	default:
 		return NewUniversalParser(meta)
