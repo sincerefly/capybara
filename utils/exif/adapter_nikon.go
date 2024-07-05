@@ -15,7 +15,14 @@ func NewNikonParser(meta Meta) *NikonParser {
 }
 
 func (p *NikonParser) Make() (string, error) {
-	return p.meta.GetString(TagMake)
+	value, err := p.meta.GetString(TagMake)
+	if err != nil {
+		return "", err
+	}
+	if value == "NIKON CORPORATION" { // re-formatted
+		value = "NIKON"
+	}
+	return value, nil
 }
 
 func (p *NikonParser) MakeSafe() string {
@@ -94,4 +101,20 @@ func (p *NikonParser) ISO() (string, error) {
 
 func (p *NikonParser) ISOSafe() string {
 	return p.meta.GetStringSafe(TagISO)
+}
+
+func (p *NikonParser) LensModel() (string, error) {
+	return p.meta.GetString(TagLensModel)
+}
+
+func (p *NikonParser) LensModelSafe() string {
+	return p.meta.GetStringSafe(TagLensModel)
+}
+
+func (p *NikonParser) CreateDate() (string, error) {
+	return p.meta.GetString(TagCreateDate)
+}
+
+func (p *NikonParser) CreateDateSafe() string {
+	return p.meta.GetStringSafe(TagCreateDate)
 }

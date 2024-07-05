@@ -73,3 +73,26 @@ func GetBoolParam(flags *pflag.FlagSet, key string) bool {
 	val, _ := GetBoolParamB(flags, key)
 	return val
 }
+
+// GetFloat64ParamB returns a parameter as float64 and a boolean to tell if it is different from the default
+func GetFloat64ParamB(flags *pflag.FlagSet, key string) (float64, bool) {
+	value, _ := flags.GetFloat64(key)
+
+	// If set on Flags, use it.
+	if flags.Changed(key) {
+		return value, true
+	}
+
+	// If set through viper (env, config), return it.
+	if v.IsSet(key) {
+		return v.GetFloat64(key), true
+	}
+
+	// Otherwise use default value on flags.
+	return value, false
+}
+
+func GetFloat64Param(flags *pflag.FlagSet, key string) float64 {
+	val, _ := GetFloat64ParamB(flags, key)
+	return val
+}
