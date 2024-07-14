@@ -59,3 +59,19 @@ func (p *UniversalParser) ISO() (string, error) {
 func (p *UniversalParser) ISOSafe() string {
 	return p.meta.GetStringSafe(TagISO)
 }
+
+func (p *UniversalParser) LensModel() (string, error) {
+	return p.meta.GetString(TagLensModel)
+}
+
+func (p *UniversalParser) LensModelSafe() string {
+	return p.meta.GetStringSafe(TagLensModel)
+}
+
+func (p *UniversalParser) CreateDate() (string, error) {
+	return p.meta.GetString(TagCreateDate)
+}
+
+func (p *UniversalParser) CreateDateSafe() string {
+	return p.meta.GetStringSafe(TagCreateDate)
+}

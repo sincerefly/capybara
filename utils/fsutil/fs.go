@@ -39,6 +39,18 @@ func Exists(path string) (bool, error) {
 	return afero.Exists(appFs, path)
 }
 
+func GetTempDir(path string) string {
+	return afero.GetTempDir(appFs, path)
+}
+
+func TempFile(dir string, pattern string) (f afero.File, err error) {
+	return afero.TempFile(appFs, dir, pattern)
+}
+
+func WriteFile(filename string, data []byte, perm os.FileMode) error {
+	return afero.WriteFile(appFs, filename, data, perm)
+}
+
 func ExecutableDir() (string, error) {
 
 	executablePath, err := os.Executable()

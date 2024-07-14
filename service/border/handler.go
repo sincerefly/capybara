@@ -18,6 +18,7 @@ type Style string
 const (
 	StyleSimple     Style = "simple"
 	StyleTextBottom Style = "text_bottom"
+	StyleLogoMelon  Style = "logo_melon"
 )
 
 type Parameterizable interface {
@@ -58,6 +59,9 @@ func (s *StyleProcessor) Run() {
 	case StyleTextBottom:
 		params := s.params.(*styles.TextBottomParameter)
 		err = styles.NewTextBottomProcessor(params, fiStore).Run()
+	case StyleLogoMelon:
+		params := s.params.(*styles.LogoMelonParameter)
+		err = styles.NewLogoMelonProcessor(params, fiStore).Run()
 	}
 	if err != nil {
 		log.Fatal(err)

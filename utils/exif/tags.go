@@ -9,4 +9,6 @@ const (
 	TagAperture                = "Aperture"
 	TagShutterSpeed            = "ShutterSpeed"
 	TagISO                     = "ISO"
+	TagLensModel               = "LensModel"
+	TagCreateDate              = "CreateDate"
 )

@@ -5,23 +5,23 @@ import "strings"
 type Corporation string
 
 const (
-	Sony     Corporation = "SONY"
-	Nikon    Corporation = "NIKON"
-	Fujifilm Corporation = "FUJIFILM"
-	Apple    Corporation = "APPLE"
+	SonyCorporation     Corporation = "SONY"
+	NikonCorporation    Corporation = "NIKON"
+	FujifilmCorporation Corporation = "FUJIFILM"
+	AppleCorporation    Corporation = "APPLE"
 )
 
 func MakeToCorporation(makeStr string) Corporation {
 
 	upMakeStr := strings.ToUpper(makeStr)
-	if strings.Contains(upMakeStr, string(Sony)) {
-		return Sony
-	} else if strings.Contains(upMakeStr, string(Nikon)) {
-		return Nikon
-	} else if strings.Contains(upMakeStr, string(Fujifilm)) {
-		return Fujifilm
-	} else if strings.Contains(upMakeStr, string(Apple)) {
-		return Apple
+	if strings.Contains(upMakeStr, string(SonyCorporation)) {
+		return SonyCorporation
+	} else if strings.Contains(upMakeStr, string(NikonCorporation)) {
+		return NikonCorporation
+	} else if strings.Contains(upMakeStr, string(FujifilmCorporation)) {
+		return FujifilmCorporation
+	} else if strings.Contains(upMakeStr, string(AppleCorporation)) {
+		return AppleCorporation
 	}
 	return ""
 }

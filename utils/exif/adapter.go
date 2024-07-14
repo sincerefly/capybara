@@ -13,11 +13,15 @@ type Adapter interface {
 	ShutterSpeedSafe() string
 	ISO() (string, error)
 	ISOSafe() string
+	LensModel() (string, error)
+	LensModelSafe() string
+	CreateDate() (string, error)
+	CreateDateSafe() string
 }
 
 func makeAdapter(meta Meta) Adapter {
 	switch MakeToCorporation(meta.GetStringSafe(TagMake)) {
-	case Nikon:
+	case NikonCorporation:
 		return NewNikonParser(meta)
 	default:
 		return NewUniversalParser(meta)
@@ -70,4 +74,20 @@ func (m *Meta) ISO() (string, error) {
 
 func (m *Meta) ISOSafe() string {
 	return makeAdapter(*m).ISOSafe()
+}
+
+func (m *Meta) LensModel() (string, error) {
+	return makeAdapter(*m).LensModel()
+}
+
+func (m *Meta) LensModelSafe() string {
+	return makeAdapter(*m).LensModelSafe()
+}
+
+func (m *Meta) CreateDate() (string, error) {
+	return makeAdapter(*m).CreateDate()
+}
+
+func (m *Meta) CreateDateSafe() string {
+	return makeAdapter(*m).CreateDateSafe()
 }

@@ -11,6 +11,7 @@ func init() {
 
 	borderCmd.AddCommand(border.SimpleCmd)
 	borderCmd.AddCommand(border.TextBottomCmd)
+	borderCmd.AddCommand(border.LogoMelonCmd)
 }
 
 var borderCmd = &cobra.Command{

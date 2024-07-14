@@ -14,12 +14,11 @@ type Client struct {
 func NewExifClient() (*Client, error) {
 
 	// check deps
-	path, err := IsExifToolInstalled()
+	_, err := IsExifToolInstalled()
 	if err != nil {
 		log.Infof("please install exiftool first (website: https://exiftool.org/)")
 		return nil, err
 	}
-	log.Debugf("found exiftool, path: %s", path)
 
 	client, err := exiftool.NewExiftool()
 	if err != nil {

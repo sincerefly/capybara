@@ -110,7 +110,7 @@ func (s *TextBottomProcessor) runner(fi fileitem.FileItem) error {
 		return err
 	}
 
-	log.Infof("image with simple border saved to %s", outImageKey)
+	log.Infof("with text_bottom saved to %s", outImageKey)
 	return nil
 }
 
