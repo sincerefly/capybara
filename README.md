@@ -2,7 +2,7 @@
 
 <p>
     <picture>
-      <img src="docs/logo/capybara.png" width="180" />
+      <img src="docs/logo/capybara.png" width="180"  alt="capybara"/>
     </picture>
 </p>
 
@@ -69,32 +69,29 @@ $ capybara border text_bottom --container-height 360 --without-subtitle
 
 Different styles support different parameters. Please refer to the documentation for details
 
-You can use `--help` to view the default parameters.
+### Style Example
 
 ```bash
-$ ./capybara --help
-A command-line tool to add simple borders and annotate photo information such as camera model, manufacturer, focal length, lens, etc.
-
-Usage:
-  border [flags]
-  border [command]
-
-Available Commands:
-  border      To batch add borders to images.
-  completion  Generate the autocompletion script for the specified shell
-  help        Help about any command
-  version     Print the version number
-
-Flags:
-      --debug            enables detailed logging for debugging.
-  -h, --help             help for border
-      --no-parallelism   disables parallel processing, without goroutine.
-  -v, --version          print version
-
-Use "border [command] --help" for more information about a command.
+$ capybara border simple
+$ capybara border text_bottom
+$ capybara border melon
 ```
 
-Subcommand --help
+<div class="row" style="display: flex; max-width: 720px;">
+    <div style="width: 33.33%; padding: 5px;">
+      <img src="docs/image/style-simple.webp" alt="simple" style="width: 100%; height: auto;">
+    </div>
+    <div style="width: 33.33%; padding: 5px;">
+      <img src="docs/image/style-text_bottom.webp" alt="text_bottom" style="width: 100%; height: auto;">
+    </div>
+    <div style="width: 33.33%; padding: 5px;">
+      <img src="docs/image/style-melon.webp" alt="melon" style="width: 100%; height: auto;">
+    </div>
+</div>
+
+### Help 
+
+You can use `subcommand --help` to view the default parameters.
 
 ```bash
 $ ./capybara border text_bottom --help
