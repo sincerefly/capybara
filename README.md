@@ -57,17 +57,6 @@ $ capybara border --color "rgb(238, 130, 238)"
 $ capybara border --color "rgba(238, 130, 238, 255)"
 ```
 
-with 'text_bottom' style
-
-```bash
-$ capybara border text_bottom
-
-$ capybara border text_bottom --color AliceBlue
-
-$ capybara border text_bottom --container-height 360 --without-subtitle
-```
-
-Different styles support different parameters. Please refer to the documentation for details
 
 ### Style Example
 
@@ -91,6 +80,8 @@ $ capybara border melon
 </table>
 
 ### Help 
+
+Different styles support different parameters. Please refer to the documentation for details
 
 You can use `subcommand --help` to view the default parameters.
 
