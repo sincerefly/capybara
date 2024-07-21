@@ -77,17 +77,18 @@ $ capybara border text_bottom
 $ capybara border melon
 ```
 
-<div class="row" style="display: flex; max-width: 720px;">
-    <div style="width: 33.33%; padding: 5px;">
-      <img src="docs/image/style-simple.webp" alt="simple" style="width: 100%; height: auto;">
-    </div>
-    <div style="width: 33.33%; padding: 5px;">
-      <img src="docs/image/style-text_bottom.webp" alt="text_bottom" style="width: 100%; height: auto;">
-    </div>
-    <div style="width: 33.33%; padding: 5px;">
-      <img src="docs/image/style-melon.webp" alt="melon" style="width: 100%; height: auto;">
-    </div>
-</div>
+<table>
+  <tr>
+    <td>style: simple</td>
+    <td>style: text_bottom</td>
+    <td>style: melon</td>
+  </tr>
+  <tr>
+    <td><img src="docs/image/style-simple.webp" width=270></td>
+    <td><img src="docs/image/style-text_bottom.webp" width=270></td>
+    <td><img src="docs/image/style-melon.webp" width=270></td>
+  </tr>
+</table>
 
 ### Help 
 
