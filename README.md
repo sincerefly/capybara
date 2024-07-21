@@ -32,13 +32,13 @@ $ go build
 add border with default parameters
 
 ```bash
-$ capybara border
+$ capybara border simple
 ```
 
 using 'simple' style, with 100 border size, process 'input' folder images, save to 'output' folder
 
 ```bash
-$ capybara border -s simple -w 100 -i input -o output
+$ capybara border simple -w 100 -i input -o output
 ```
 
 border color 
@@ -56,7 +56,6 @@ $ capybara border --color "rgb(238, 130, 238)"
 # with rgba
 $ capybara border --color "rgba(238, 130, 238, 255)"
 ```
-
 
 ### Style Example
 
