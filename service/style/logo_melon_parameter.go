@@ -1,4 +1,4 @@
-package styles
+package style
 
 import (
 	"encoding/json"

@@ -1,10 +1,9 @@
-package border
+package style
 
 import (
 	"fmt"
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/constants"
-	"github.com/sincerefly/capybara/service/border/styles"
 	"github.com/sincerefly/capybara/structure/fileitem"
 	"github.com/sincerefly/capybara/utils/fsutil"
 	"path/filepath"
@@ -54,14 +53,14 @@ func (s *StyleProcessor) Run() {
 
 	switch s.style {
 	case StyleSimple:
-		params := s.params.(*styles.SimpleParameter)
-		err = styles.NewSimpleProcessor(params, fiStore).Run()
+		params := s.params.(*SimpleParameter)
+		err = NewSimpleProcessor(params, fiStore).Run()
 	case StyleTextBottom:
-		params := s.params.(*styles.TextBottomParameter)
-		err = styles.NewTextBottomProcessor(params, fiStore).Run()
+		params := s.params.(*TextBottomParameter)
+		err = NewTextBottomProcessor(params, fiStore).Run()
 	case StyleLogoMelon:
-		params := s.params.(*styles.LogoMelonParameter)
-		err = styles.NewLogoMelonProcessor(params, fiStore).Run()
+		params := s.params.(*LogoMelonParameter)
+		err = NewLogoMelonProcessor(params, fiStore).Run()
 	}
 	if err != nil {
 		log.Fatal(err)

@@ -1,21 +1,20 @@
-package border
+package style
 
 import (
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/cmd/border_common"
 	"github.com/sincerefly/capybara/cmd/cmdutils"
-	"github.com/sincerefly/capybara/service/border"
-	"github.com/sincerefly/capybara/service/border/styles"
+	"github.com/sincerefly/capybara/service/style"
 	"github.com/sincerefly/capybara/utils/colorizer"
 	"github.com/spf13/cobra"
 )
 
-var LogoMelonCmd = &cobra.Command{
-	Use:   "melon",
-	Short: "Style: logo left, no padding",
+var TextBottomCmd = &cobra.Command{
+	Use:   "text_bottom",
+	Short: "Style: Footer text, with photo exif",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		parameter := &styles.LogoMelonParameter{}
+		parameter := &style.TextBottomParameter{}
 
 		input := cmdutils.GetParam(cmd.Flags(), "input")
 		parameter.SetInput(input)
@@ -40,28 +39,26 @@ var LogoMelonCmd = &cobra.Command{
 		parameter.SetBorderColor(col)
 
 		// bottom container height
-		containerHeight, set := cmdutils.GetIntParamB(cmd.Flags(), "container-height")
+		containerHeight := cmdutils.GetIntParam(cmd.Flags(), "container-height")
 		parameter.SetBottomContainerHeight(containerHeight)
-		parameter.SetIsContainerHeightSet(set)
 
-		// bottom container height
-		containerHeightRatio := cmdutils.GetFloat64Param(cmd.Flags(), "container-height-ratio")
-		parameter.SetBottomContainerHeightRatio(containerHeightRatio)
+		// with subtitle
+		withoutSubtitle := cmdutils.GetBoolParam(cmd.Flags(), "without-subtitle")
+		parameter.SetWithoutSubtitle(withoutSubtitle)
 
 		// run
 		log.Debugf("parameter: %s", parameter.JSONString())
-		border.NewStyleProcessor(border.StyleLogoMelon, parameter).Run()
+		style.NewStyleProcessor(style.StyleTextBottom, parameter).Run()
 	},
 }
 
 func init() {
 
-	flags := LogoMelonCmd.Flags()
+	flags := TextBottomCmd.Flags()
 	flags.StringP("input", "i", "input", "specify input folder")
 	flags.StringP("output", "o", "output", "specify output folder")
 	flags.IntP("width", "w", 100, "specify border width")
 	flags.StringP("color", "c", "white", "specify border color")
-	flags.IntP("container-height", "", 300, "bottom logo container height")
-	flags.Float64P("container-height-ratio", "", 0.12, "bottom logo container height, image based height")
+	flags.IntP("container-height", "", 300, "bottom text container height")
 	flags.BoolP("without-subtitle", "", false, "without subtitle")
 }
