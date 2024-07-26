@@ -32,37 +32,37 @@ $ go build
 add border with default parameters
 
 ```bash
-$ capybara border simple
+$ capybara style simple
 ```
 
 using 'simple' style, with 100 border size, process 'input' folder images, save to 'output' folder
 
 ```bash
-$ capybara border simple -w 100 -i input -o output
+$ capybara style simple -w 100 -i input -o output
 ```
 
 border color 
 
 ```bash
 # with html color names, case-insensitive
-$ capybara border --color AliceBlue
+$ capybara style simple --color AliceBlue
 
 # with hex
-$ capybara border --color "#228B22"
+$ capybara style simple --color "#228B22"
 
 # with rgb
-$ capybara border --color "rgb(238, 130, 238)"
+$ capybara style simple --color "rgb(238, 130, 238)"
 
 # with rgba
-$ capybara border --color "rgba(238, 130, 238, 255)"
+$ capybara style simple --color "rgba(238, 130, 238, 255)"
 ```
 
 ### Style Example
 
 ```bash
-$ capybara border simple
-$ capybara border text_bottom
-$ capybara border melon
+$ capybara style simple
+$ capybara style text_bottom
+$ capybara style melon
 ```
 
 <table>
@@ -85,11 +85,11 @@ Different styles support different parameters. Please refer to the documentation
 You can use `subcommand --help` to view the default parameters.
 
 ```bash
-$ ./capybara border text_bottom --help
+$ ./capybara style text_bottom --help
 Style: Footer text, with photo exif
 
 Usage:
-  border border text_bottom [flags]
+  style style text_bottom [flags]
 
 Flags:
   -c, --color string           specify border color (default "white")

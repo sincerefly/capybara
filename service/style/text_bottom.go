@@ -1,4 +1,4 @@
-package styles
+package style
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/global"
 	"github.com/sincerefly/capybara/resources"
-	"github.com/sincerefly/capybara/service/border/styles_common"
+	"github.com/sincerefly/capybara/service/style/styles_common"
 	"github.com/sincerefly/capybara/structure/fileitem"
 	"github.com/sincerefly/capybara/structure/layout"
 	"github.com/sincerefly/capybara/structure/size"

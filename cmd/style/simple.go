@@ -1,11 +1,10 @@
-package border
+package style
 
 import (
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/cmd/border_common"
 	"github.com/sincerefly/capybara/cmd/cmdutils"
-	"github.com/sincerefly/capybara/service/border"
-	"github.com/sincerefly/capybara/service/border/styles"
+	"github.com/sincerefly/capybara/service/style"
 	"github.com/sincerefly/capybara/utils/colorizer"
 	"github.com/spf13/cobra"
 )
@@ -15,7 +14,7 @@ var SimpleCmd = &cobra.Command{
 	Short: "Style: add a uniform-width border to the image.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		parameter := &styles.SimpleParameter{}
+		parameter := &style.SimpleParameter{}
 
 		input := cmdutils.GetParam(cmd.Flags(), "input")
 		parameter.SetInput(input)
@@ -41,7 +40,7 @@ var SimpleCmd = &cobra.Command{
 
 		// run
 		log.Debugf("parameter: %s", parameter.JSONString())
-		border.NewStyleProcessor(border.StyleSimple, parameter).Run()
+		style.NewStyleProcessor(style.StyleSimple, parameter).Run()
 	},
 }
 
