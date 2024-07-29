@@ -20,6 +20,8 @@ const (
 	RobotLightTTF          = "font/Robot/Robot-Light.ttf"
 	RobotMediumTTF         = "font/Robot/Robot-Medium.ttf"
 	RobotRegularTTF        = "font/Robot/Robot-Regular.ttf"
+	Digital7MonoTTF        = "font/Digital-7/digital-7-mono.ttf"
+	Digital7TTF            = "font/Digital-7/digital-7.ttf"
 )
 
 //go:embed logo/*
