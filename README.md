@@ -78,6 +78,19 @@ $ capybara style melon
   </tr>
 </table>
 
+```bash
+$ capybara style pineapple
+```
+
+<table>
+  <tr>
+    <td>style: pineapple</td>
+  </tr>
+  <tr>
+    <td><img src="docs/image/style-pineapple.webp" width=270></td>
+  </tr>
+</table>
+
 ### Help 
 
 Different styles support different parameters. Please refer to the documentation for details

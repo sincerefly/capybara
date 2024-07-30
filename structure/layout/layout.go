@@ -17,6 +17,23 @@ func (p *Position) BaseY() float64 {
 	return p.y
 }
 
+type Anchor struct {
+	ax float64
+	ay float64
+}
+
+func NewAnchor(ax, ay float64) Anchor {
+	return Anchor{ax: ax, ay: ay}
+}
+
+func (p *Anchor) Ax() float64 {
+	return p.ax
+}
+
+func (p *Anchor) Ay() float64 {
+	return p.ay
+}
+
 type Padding struct {
 	left float64
 	top  float64

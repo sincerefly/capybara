@@ -14,6 +14,7 @@ type RichText struct {
 	fontSize      float64
 	color         color.Color
 	position      layout.Position
+	anchor        layout.Anchor
 }
 
 func NewRichText(text, fontPath string, fontSize float64, color color.Color) RichText {
@@ -66,4 +67,12 @@ func (rt *RichText) Position() *layout.Position {
 
 func (rt *RichText) SetPosition(position layout.Position) {
 	rt.position = position
+}
+
+func (rt *RichText) Anchor() *layout.Anchor {
+	return &rt.anchor
+}
+
+func (rt *RichText) SetAnchor(anchor layout.Anchor) {
+	rt.anchor = anchor
 }
