@@ -76,11 +76,29 @@ func (s *PineappleProcessor) runner(fi fileitem.FileItem) error {
 	// create draw context
 	dc := gg.NewContextForImage(dst)
 
-	// draw text
-	err = s.drawShotTime(dc, imgSize, meta, fontColor)
-	if err != nil {
-		log.Fatalf("failed to draw title %v", err)
-		return err
+	// portrait image
+	if imgSize.Height > imgSize.Width {
+
+		dc.Translate(float64(imgSize.Width/2), float64(imgSize.Height/2))
+		dc.Rotate(90 * gg.Radians(1))
+		dc.Translate(-float64(imgSize.Height/2), -float64(imgSize.Width/2))
+
+		err := s.drawPortrait(dc, imgSize, meta, fontColor)
+		if err != nil {
+			log.Fatalf("failed to draw date stamp %v", err)
+			return err
+		}
+
+		dc.Translate(float64(imgSize.Height/2), float64(imgSize.Width/2))
+		dc.Rotate(-90 * gg.Radians(1))
+		dc.Translate(-float64(imgSize.Width/2), -float64(imgSize.Height/2))
+
+	} else {
+		err = s.drawHorizontal(dc, imgSize, meta, fontColor)
+		if err != nil {
+			log.Fatalf("failed to draw date stamp %v", err)
+			return err
+		}
 	}
 
 	err = imaging.Save(dc.Image(), outImageKey)
@@ -88,19 +106,15 @@ func (s *PineappleProcessor) runner(fi fileitem.FileItem) error {
 		log.Fatalf("failed to save image %v", err)
 		return err
 	}
-
 	log.Infof("with pineapple style saved to %s", outImageKey)
 	return nil
 }
 
 func (s *PineappleProcessor) fixedFontSize(size size.Size) float64 {
-	if size.Height > size.Width {
-		return float64(size.Height) / 25 // Experience numbers
-	}
-	return float64(size.Height) / 22
+	return float64(size.Height) / 25
 }
 
-func (s *PineappleProcessor) drawShotTime(dc *gg.Context, imgSize size.Size, meta exif.Meta, fontColor color.Color) error {
+func (s *PineappleProcessor) drawHorizontal(dc *gg.Context, imgSize size.Size, meta exif.Meta, fontColor color.Color) error {
 
 	// font size
 	fontSize := s.fixedFontSize(imgSize)
@@ -109,7 +123,6 @@ func (s *PineappleProcessor) drawShotTime(dc *gg.Context, imgSize size.Size, met
 	if err != nil {
 		log.Fatalf("convert datetime failed, %v", err)
 	}
-	//fontColor, _ := colorizer.ToColor("rgba(255, 140, 0, 230)")
 
 	dateTimeRt := text.NewRichText(
 		createDate,
@@ -120,7 +133,11 @@ func (s *PineappleProcessor) drawShotTime(dc *gg.Context, imgSize size.Size, met
 	rtDc, _ := dateTimeRt.Context(imgSize.Width, imgSize.Height)
 	fontWidth, _ := rtDc.MeasureString(dateTimeRt.Text())
 
-	s.fillLeftTopPos(&dateTimeRt, imgSize, fontSize, fontWidth)
+	// set position
+	x := float64(imgSize.Width) - fontWidth - fontSize
+	y := float64(imgSize.Height) - fontSize + 50
+	drawPosition := layout.NewPosition(x, y)
+	dateTimeRt.SetPosition(drawPosition)
 
 	rTexts := []text.RichText{dateTimeRt}
 
@@ -130,12 +147,37 @@ func (s *PineappleProcessor) drawShotTime(dc *gg.Context, imgSize size.Size, met
 	return nil
 }
 
-func (s *PineappleProcessor) fillLeftTopPos(rText *text.RichText, imgSize size.Size, fontSize float64, fontWidth float64) {
+func (s *PineappleProcessor) drawPortrait(dc *gg.Context, imgSize size.Size, meta exif.Meta, fontColor color.Color) error {
 
-	x := float64(imgSize.Width) - fontWidth - fontSize
-	y := float64(imgSize.Height) - fontSize + 50
-	drawPosition := layout.NewPosition(x, y)
-	rText.SetPosition(drawPosition)
+	// font size
+	fontSize := s.fixedFontSize(imgSize)
+
+	createDate, err := s.metaDateToDateStampFormat(meta.CreateDateSafe())
+	if err != nil {
+		log.Fatalf("convert datetime failed, %v", err)
+	}
+
+	dateTimeRt := text.NewRichText(
+		createDate,
+		resources.Digital7MonoTTF,
+		fontSize,
+		fontColor,
+	)
+	rtDc, _ := dateTimeRt.Context(imgSize.Width, imgSize.Height)
+	fontWidth, fontHeight := rtDc.MeasureString(dateTimeRt.Text())
+
+	rotatedWidth := imgSize.Height
+	rotatedHeight := imgSize.Width
+
+	dateTimeRt.SetPosition(layout.NewPosition(float64(rotatedWidth)-fontWidth-200, float64(rotatedHeight)-fontHeight))
+	dateTimeRt.SetAnchor(layout.NewAnchor(0, 0))
+
+	rTexts := []text.RichText{dateTimeRt}
+
+	if err := ggwrapper.DrawStringAnchored(dc, rTexts); err != nil {
+		return err
+	}
+	return nil
 }
 
 // Output Format: '24 07 29 21:22
