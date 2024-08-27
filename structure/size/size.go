@@ -29,8 +29,16 @@ func (p *Pair) DstWidth() int {
 	return p.Destination.Width
 }
 
+func (p *Pair) SetDstWidth(dstWidth int) {
+	p.Destination.Width = dstWidth
+}
+
 func (p *Pair) DstHeight() int {
 	return p.Destination.Height
+}
+
+func (p *Pair) SetDstHeight(dstHeight int) {
+	p.Destination.Height = dstHeight
 }
 
 type FloatSize struct {

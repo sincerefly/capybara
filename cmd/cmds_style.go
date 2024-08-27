@@ -13,6 +13,7 @@ func init() {
 	styleCmd.AddCommand(style.TextBottomCmd)
 	styleCmd.AddCommand(style.LogoMelonCmd)
 	styleCmd.AddCommand(style.PineappleCmd)
+	styleCmd.AddCommand(style.DurianCmd)
 }
 
 var styleCmd = &cobra.Command{
