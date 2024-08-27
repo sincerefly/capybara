@@ -1,9 +1,10 @@
 package colorizer
 
 import (
-	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // https://htmlcolorcodes.com/color-names/

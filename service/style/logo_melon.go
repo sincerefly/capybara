@@ -2,6 +2,11 @@ package style
 
 import (
 	"fmt"
+	"image"
+	"image/color"
+	"strings"
+	"time"
+
 	"github.com/disintegration/imaging"
 	"github.com/fogleman/gg"
 	"github.com/sincerefly/capybara/base/log"
@@ -14,10 +19,6 @@ import (
 	"github.com/sincerefly/capybara/structure/text"
 	"github.com/sincerefly/capybara/utils/exif"
 	"github.com/sincerefly/capybara/utils/ggwrapper"
-	"image"
-	"image/color"
-	"strings"
-	"time"
 )
 
 type LogoMelonProcessor struct {

@@ -1,10 +1,11 @@
 package text
 
 import (
+	"image/color"
+
 	"github.com/fogleman/gg"
 	"github.com/sincerefly/capybara/structure/layout"
 	"github.com/sincerefly/capybara/utils/fonts"
-	"image/color"
 )
 
 type RichText struct {

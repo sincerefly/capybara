@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/sincerefly/capybara/service/style/styles_common"
-	"github.com/sincerefly/capybara/structure/fileitem"
 	"os"
 	"path/filepath"
+
+	"github.com/sincerefly/capybara/service/style/styles_common"
+	"github.com/sincerefly/capybara/structure/fileitem"
 )
 
 /*

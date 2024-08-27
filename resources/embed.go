@@ -3,11 +3,12 @@ package resources
 import (
 	"embed"
 	"errors"
-	"github.com/sincerefly/capybara/utils/exif"
-	"github.com/sincerefly/capybara/utils/fsutil"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/sincerefly/capybara/utils/exif"
+	"github.com/sincerefly/capybara/utils/fsutil"
 )
 
 //go:embed font/* font/*
@@ -63,7 +64,7 @@ func CreateTemporaryLogoFile(makeStr string) (string, error) {
 		return "", err
 	}
 	if !exist {
-		fsutil.MkdirAll(filepath.Dir(filename))
+		_ = fsutil.MkdirAll(filepath.Dir(filename))
 	}
 
 	if err = fsutil.WriteFile(filename, b, os.FileMode(0644)); err != nil { // to temp file

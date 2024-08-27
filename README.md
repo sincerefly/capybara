@@ -1,4 +1,4 @@
-# Capybara 
+# Capybara
 
 <p>
     <picture>
@@ -41,7 +41,7 @@ using 'simple' style, with 100 border size, process 'input' folder images, save 
 $ capybara style simple -w 100 -i input -o output
 ```
 
-border color 
+border color
 
 ```bash
 # with html color names, case-insensitive
@@ -91,7 +91,7 @@ $ capybara style pineapple
   </tr>
 </table>
 
-### Help 
+### Help
 
 Different styles support different parameters. Please refer to the documentation for details
 

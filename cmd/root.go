@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"strings"
+
 	"github.com/mitchellh/go-homedir"
 	"github.com/sincerefly/capybara/base"
 	"github.com/sincerefly/capybara/base/log"
@@ -9,7 +11,6 @@ import (
 	"github.com/spf13/cobra"
 	v "github.com/spf13/viper"
 	"gitlab.com/avarf/getenvs"
-	"strings"
 )
 
 type cobraFunc func(cmd *cobra.Command, args []string)

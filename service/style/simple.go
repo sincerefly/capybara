@@ -1,11 +1,12 @@
 package style
 
 import (
+	"image"
+
 	"github.com/disintegration/imaging"
 	"github.com/sincerefly/capybara/base/log"
 	"github.com/sincerefly/capybara/global"
 	"github.com/sincerefly/capybara/structure/fileitem"
-	"image"
 )
 
 type SimpleProcessor struct {

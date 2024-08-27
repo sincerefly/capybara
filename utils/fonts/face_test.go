@@ -1,10 +1,11 @@
 package fonts
 
 import (
-	"github.com/sincerefly/capybara/resources"
-	"github.com/stretchr/testify/assert"
 	"path/filepath"
 	"testing"
+
+	"github.com/sincerefly/capybara/resources"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestLoadFontFace(t *testing.T) {

@@ -2,6 +2,10 @@ package style
 
 import (
 	"fmt"
+	"image"
+	"image/color"
+	"strings"
+
 	"github.com/disintegration/imaging"
 	"github.com/fogleman/gg"
 	"github.com/sincerefly/capybara/base/log"
@@ -15,9 +19,6 @@ import (
 	"github.com/sincerefly/capybara/utils/exif"
 	"github.com/sincerefly/capybara/utils/ggwrapper"
 	"golang.org/x/image/colornames"
-	"image"
-	"image/color"
-	"strings"
 )
 
 type TextBottomProcessor struct {

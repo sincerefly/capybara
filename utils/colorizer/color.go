@@ -2,10 +2,11 @@ package colorizer
 
 import (
 	"fmt"
-	"golang.org/x/image/colornames"
 	"image/color"
 	"strconv"
 	"strings"
+
+	"golang.org/x/image/colornames"
 )
 
 func ToColor(colorStr string) (color.RGBA, error) {

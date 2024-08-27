@@ -45,7 +45,7 @@ func (f *Store) Set(i int, fileItem FileItem) {
 }
 
 func (f *Store) GetInnerKeys() []string {
-	list := make([]string, len(f.items), len(f.items))
+	list := make([]string, len(f.items))
 	for i, item := range f.items {
 		list[i] = item.GetInnerKey()
 	}
@@ -53,7 +53,7 @@ func (f *Store) GetInnerKeys() []string {
 }
 
 func (f *Store) GetInnerPaths() []string {
-	list := make([]string, len(f.items), len(f.items))
+	list := make([]string, len(f.items))
 	for i, item := range f.items {
 		list[i] = item.GetInnerPath()
 	}
@@ -61,7 +61,7 @@ func (f *Store) GetInnerPaths() []string {
 }
 
 func (f *Store) GetSourceKeys() []string {
-	list := make([]string, len(f.items), len(f.items))
+	list := make([]string, len(f.items))
 	for i, item := range f.items {
 		list[i] = item.GetSourceKey()
 	}

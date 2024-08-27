@@ -1,9 +1,10 @@
 package log
 
 import (
-	"github.com/charmbracelet/log"
 	"os"
 	"time"
+
+	"github.com/charmbracelet/log"
 )
 
 var logger *log.Logger

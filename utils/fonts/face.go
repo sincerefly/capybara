@@ -2,11 +2,12 @@ package fonts
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/golang/freetype/truetype"
 	"github.com/sincerefly/capybara/resources"
 	"github.com/sincerefly/capybara/utils/fsutil"
 	"golang.org/x/image/font"
-	"os"
 )
 
 // LoadFontFace Load face by ttf font path, with font size

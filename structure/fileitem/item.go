@@ -1,9 +1,10 @@
 package fileitem
 
 import (
-	"github.com/sincerefly/capybara/utils/exif"
 	"path/filepath"
 	"strings"
+
+	"github.com/sincerefly/capybara/utils/exif"
 )
 
 type FileItem struct {

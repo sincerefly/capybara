@@ -2,14 +2,15 @@ package style
 
 import (
 	"fmt"
-	"github.com/sincerefly/capybara/base/log"
-	"github.com/sincerefly/capybara/constants"
-	"github.com/sincerefly/capybara/structure/fileitem"
-	"github.com/sincerefly/capybara/utils/fsutil"
 	"path/filepath"
 	"slices"
 	"strings"
 	"time"
+
+	"github.com/sincerefly/capybara/base/log"
+	"github.com/sincerefly/capybara/constants"
+	"github.com/sincerefly/capybara/structure/fileitem"
+	"github.com/sincerefly/capybara/utils/fsutil"
 )
 
 type Style string

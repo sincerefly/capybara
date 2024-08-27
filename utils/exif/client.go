@@ -3,6 +3,7 @@ package exif
 import (
 	"errors"
 	"fmt"
+
 	"github.com/barasher/go-exiftool"
 	"github.com/sincerefly/capybara/base/log"
 )

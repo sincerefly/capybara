@@ -1,9 +1,10 @@
 package fsutil
 
 import (
-	"github.com/spf13/afero"
 	"os"
 	"path/filepath"
+
+	"github.com/spf13/afero"
 )
 
 var appFs afero.Fs
