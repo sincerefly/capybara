@@ -80,6 +80,7 @@ $ capybara style melon
 
 ```bash
 $ capybara style pineapple
+$ capybara style durian
 ```
 
 <table>
@@ -88,6 +89,7 @@ $ capybara style pineapple
   </tr>
   <tr>
     <td><img src="docs/image/style-pineapple.webp" width=270></td>
+    <td><img src="docs/image/style-durian.webp" width=270></td>
   </tr>
 </table>
 

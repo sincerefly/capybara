@@ -20,6 +20,7 @@ const (
 	StyleTextBottom Style = "text_bottom"
 	StyleLogoMelon  Style = "logo_melon"
 	StylePineapple  Style = "pineapple"
+	StyleDurian     Style = "durian"
 )
 
 type Parameterizable interface {
@@ -66,6 +67,11 @@ func (s *StyleProcessor) Run() {
 	case StylePineapple:
 		params := s.params.(*PineappleParameter)
 		err = NewPineappleProcessor(params, fiStore).Run()
+	case StyleDurian:
+		params := s.params.(*DurianParameter)
+		err = NewDurianProcessor(params, fiStore).Run()
+	default:
+		log.Fatal("not supported style", "name", s.style)
 	}
 
 	if err != nil {
