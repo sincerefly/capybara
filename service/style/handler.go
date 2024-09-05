@@ -76,7 +76,7 @@ func (s *StyleProcessor) Run() {
 }
 
 func (s *StyleProcessor) SupportExtensions() []string {
-	return []string{constants.ExtJPG, constants.ExtPNG, constants.ExtJPEG}
+	return []string{constants.ImageExtJPG, constants.ImageExtPNG, constants.ImageExtJPEG}
 }
 
 // collect input dir images path
@@ -103,13 +103,9 @@ func (s *StyleProcessor) collectInputs() (*fileitem.Store, error) {
 		if err != nil {
 			return nil, err
 		}
-		innerPath := filepath.Dir(relativePath)
-		if err != nil {
-			return nil, err
-		}
 
 		fi := fileitem.NewFileItem(filename)
-		fi.SetInnerPath(innerPath)
+		fi.SetInnerPath(filepath.Dir(relativePath))
 		fi.SetSourceBase(input)
 		fi.SetTargetBase(output)
 
